@@ -1,0 +1,527 @@
+<!doctype html>
+<html>
+
+<!-- Mirrored from richardnyxon.neocities.org/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 May 2025 21:16:41 GMT -->
+<head>
+
+<link href="style.css" rel="stylesheet">
+
+<script src="https://chattable.neocities.org/scripts/main.min.js"></script> 
+
+<title>Nostalgia Hell</title>
+
+</head>
+
+<body id="body" class="font1">
+    <!-- Entire screen except start menu footer -->
+    <main>
+      <!-- Left-side desktop icons -->
+      <div id="desktop-nav">
+        <!-- Welcome - Desktop Icon 1 -->
+        <div id="welcome-icon" class="desktop-icon" draggable="true" tabindex="1">
+          <div id="welcome-png" class="desktop-icon-png" onclick="openTab('welcome-win')">
+            <div class="icon-overlay"></div>
+          </div>
+          <p class="icon-label blurry">Welcome</p>
+        </div>
+        <!-- Chat - Desktop Icon 2 -->
+        <div id="chat-icon" class="desktop-icon" draggable="true" tabindex="1">
+          <div id="chat-png" class="desktop-icon-png" onclick="openTab('chat-win')">
+            <div class="icon-overlay"></div>
+          </div>
+          <p class="icon-label">Chattable</p>
+        </div>
+        <!-- Changelog - Desktop Icon 3 -->
+        <div id="changelog-icon" class="desktop-icon" draggable="true" tabindex="2">
+          <div id="changelog-png" class="desktop-icon-png" onclick="openTab('changelog-win')">
+            <div class="icon-overlay"></div>
+          </div>
+          <p class="icon-label">Changelog</p>
+        </div>
+        <!-- Blog - Desktop Icon 4 -->
+        <div id="blog-icon" class="desktop-icon" draggable="true" tabindex="3">
+          <div id="blog-png" class="desktop-icon-png" onclick="openTab('blog-win')">
+            <div class="icon-overlay"></div>
+          </div>
+          <p class="icon-label blurry">Blog</p>
+        </div>
+        <!-- Media - Desktop Icon 5 -->
+        <div id="media-icon" class="desktop-icon" draggable="true" tabindex="4">
+          <div id="media-png" class="desktop-icon-png" onclick="openTab('media-win')">
+            <div class="icon-overlay"></div>
+          </div>
+          <p class="icon-label">Multimedia</p>
+        </div>
+      </div>
+      
+      <!-- Welcome - Desktop window -->
+      <div class="window desktop-window open" id="welcome-win" onmousedown="bringToTop('welcome-win')">
+        <div class="title-bar" id="welcome-win-title">
+          <div class="title-drag" id="welcome-win-drag"></div>
+          <div class="title-bar-text">Welcome to Nostalgia Hell</div>        
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" onclick="minTab('welcome-win')"></button>
+            <button aria-label="Maximize" disabled></button>
+            <button aria-label="Close" onclick="closeTab('welcome-win')"></button>
+          </div>
+        </div>      
+          <div class="window-body">
+            <p>Welcome to my website! Things are obviously still under construction here, but feel free to poke around what <b>does</b> exist.</p>
+            <p>This website is <b>not</b> optimized for mobile. There are many draggable elements which don't work with touchscreens. I'll get around to making a mobile page at some point, but that's just not a priority at the moment.</p>
+            <p>To the left, you'll see some icons you can click on. Go ahead and give them a go! There's not anything too interesting here yet, but it'll get there eventually.</p>
+
+            <menu role="tablist">
+              <button id="tab1" role="tab" aria-controls="panel1" tabindex="7">About Me</button>
+              <button id="tab2" role="tab" aria-controls="panel2" tabindex="8">Activity</button>
+              <button id="tab3" role="tab" aria-controls="panel3" tabindex="9" aria-selected="true">Sitemap</button>
+              <button id="tab4" role="tab" aria-controls="panel4" tabindex="10">Options</button>
+            </menu>
+
+            <div id="panel1" aria-labelledby="tab1" aria-hidden="true" class="window" role="tabpanel">
+              <div class="window-body">
+                <p>Uhhhh..... It's coming soon lol</p>
+              </div>
+            </div>
+
+            <div id="panel2" aria-labelledby="tab2" aria-hidden="true" class="window" role="tabpanel">
+              <div class="window-body">
+                <ul class="tree-view">
+
+                  <li>
+                    <details open>
+                    <summary>Current Activity</summary>
+                    <ul class="current">
+                      <li><span>Listening to:</span> Marvin's Marvelous Mechanical Museum (Tally Hall, 2005)</li>
+                      <li><span>Watching:</span> House, M.D. (2004-2012)</li>
+                      <li><span>Reading:</span> The Big Four (Agatha Christie, 1927)</li>
+                    </ul>
+                    </details>
+                  </li>
+
+                  <li>
+                    <details>
+                      <summary>Previous Activity</summary>
+                      <ul>
+                        <li>
+                          <details>
+                            <summary>Music</summary>
+                            <ul>
+                              <li>Nothing yet</li>
+                            </ul>
+                          </details>
+                        </li>
+                        <li>
+                          <details>
+                            <summary>TV</summary>
+                            <ul>
+                              <li>Nothing yet</li>
+                            </ul>
+                          </details>
+                        </li>
+                        <li>
+                          <details>
+                            <summary>Books</summary>
+                            <ul>
+                              <li>Nothing yet</li>
+                            </ul>
+                          </details>
+                        </li>
+                      </ul>
+                    </details>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+
+            <div id="panel3" aria-labelledby="tab3" class="window" role="tabpanel">
+              <div class="window-body">
+                <ul class="tree-view">
+                  <li>
+                   <details open="">
+                    <summary><b>Sitemap</b></summary>
+                    <ul>
+                      <li>Home</li>
+                      <li>
+                        <details>
+                          <summary>Reviews</summary>
+                          <ul>
+                            <li><a href="reviews/film.html">Film</a></li>
+                            <li><a href="reviews/music.html">Music</a></li>
+                          </ul>
+                        </details>
+                      </li>
+                      <li>
+                        <details>
+                          <summary>Content (mobile-friendly)</summary>
+                          <ul>
+                              <li><a href="content/blog.html">Blog</a></li>
+                              <li><a href="content/chat.html">Chat</a> (via Chattable)</li>
+                              <li><a href="content/credits.html">Credits</a></li>
+                          </ul>
+                        </details>
+                      </li>
+                      <li>Shutdown (wip)</li>
+                    </ul>
+                  </details>
+                 </li>
+                </ul>
+              </div>
+            </div>
+
+            <div id="panel4" aria-labelledby="tab4" aria-hidden="true" class="window" role="tabpanel">
+              <div class="window-body">
+                <fieldset>
+                  <legend class="panelLegend">Font Options</legend>
+                  <div class="field-row">
+                    <input checked="true" id="font1" type="radio" name="font-options">
+                    <label for="font1">Full aesthetic (use 100% zoom)</label>
+                  </div>
+                  <div class="field-row">
+                    <input id="font2" type="radio" name="font-options">
+                    <label for="font2">Scalable</label>
+                  </div>
+                  <div class="field-row">
+                    <input id="font3" type="radio" name="font-options">
+                    <label for="font3">Monospace</label>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- Chat - Desktop window -->
+      <div class="window desktop-window" id="chat-win" onmousedown="bringToTop('chat-win')">
+        <div class="title-bar" id="chat-win-title">
+          <div class="title-drag" id="chat-win-drag"></div>
+          <div class="title-bar-text">Chattable</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" onclick="minTab('chat-win')"></button>
+            <button aria-label="Maximize" disabled></button>
+            <button aria-label="Close" onclick="closeTab('chat-win')"></button>
+          </div>
+        </div>      
+          <div class="window-body">
+            <iframe src='https://iframe.chat/embed?chat=95414093' id='chattable' frameBorder='0'></iframe>
+            <script>
+              chattable.initialize({
+                stylesheet : "/content/chattable.css"
+              });
+            </script>
+          </div>
+      </div>
+        
+      <!-- Changelog - Desktop window -->
+      <div class="window desktop-window" id="changelog-win" onmousedown="bringToTop('changelog-win')">
+        <div class="title-bar inactive" id="changelog-win-title">
+          <div class="title-drag" id="changelog-win-drag"></div>
+          <div class="title-bar-text">Changelog</div>        
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" onclick="minTab('changelog-win')"></button>
+            <button aria-label="Maximize" disabled></button>
+            <button aria-label="Close" onclick="closeTab('changelog-win')"></button>
+          </div>
+        </div>      
+          <div class="window-body">
+            <!-- Actual Changelog -->
+            <div class="sunken-panel" id="changelog-body">
+              <table class="interactive">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Changes Made</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>---<!--Date--></td>
+                    <td>---<!--Changes--></td>
+                  </tr>
+                  <tr class="highlighted">
+                    <td>Jan 29, 2025</td>
+                    <td>Reworked Welcome window to have my activity, a sitemap, and font options. Also made a separate "To Do" list window.</td>
+                  </tr>
+                  <tr>
+                    <td>Jan 27, 2025</td>
+                    <td>Added emojis to chat, made the taskbar buttons flexible, and added clock</td>
+                  </tr>
+                  <tr>
+                    <td>Jan 25, 2025</td>
+                    <td>Cleaned up Javascript, fixed element sizing, and added minimizing!</td>
+                  </tr>
+                  <tr>
+                    <td>Jan 24, 2025</td>
+                    <td>Added chatbox (courtesy of Chattable) and customized theme to fit Win98</td>
+                  </tr>
+                  <tr>
+                    <td>Jan 8, 2025</td>
+                    <td>Reworked "focused" icons to be closer to Win98. Created Music & Film Review placeholder pages</td>
+                  </tr>
+                  <tr>
+                    <td>Jan 7, 2025</td>
+                    <td>Created the Multimedia folder.</td>
+                  </tr>
+                  <tr>
+                    <td>Nov 15, 2024</td>
+                    <td>Created the Credits page and added functionality to the Start Menu via buttons</td>
+                  </tr>
+                  <tr>
+                    <td>Nov 12, 2024</td>
+                    <td>Created the Blog! Also prettied up the Start Menu and added JS to open/close it</td>
+                  </tr>
+                  <tr>
+                    <td>Nov 11, 2024</td>
+                    <td>Created this Changelog, the Start Menu, and cleaned up names within the website's code</td>
+                  </tr>
+                  <tr>
+                    <td>Nov 5-8, 2024</td>
+                    <td>Added Javascript to open/close windows and make windows draggable</td>
+                  </tr>
+                  <tr>
+                    <td>Nov 5-8, 2024</td>
+                    <td>Initial setup. Added icons, footer, "Welcome" window, and second (hidden) window.</td>
+                  </tr>
+                  <tr>
+                    <td>Nov 5, 2024</td>
+                    <td>Created the website!</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+      
+      <!-- Blog - Desktop window -->
+      <div class="window desktop-window" id="blog-win" onmousedown="bringToTop('blog-win')">
+        <div class="title-bar" id="blog-win-title">
+          <div class="title-drag" id="blog-win-drag"></div>
+          <div class="title-bar-text">Blog</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" onclick="minTab('blog-win')"></button>
+            <button aria-label="Maximize" disabled></button>
+            <button aria-label="Close" onclick="closeTab('blog-win')"></button>
+          </div>
+        </div>      
+          <div class="window-body">
+            <iframe id="blog-body" src="content/blog.html" title="Blog" frameBorder='0' onload="iframeclick('blog-body')"></iframe>  
+          </div>
+      </div>
+
+      <!-- Media - Desktop window -->
+      <div class="window desktop-window" id="media-win" onmousedown="bringToTop('media-win')">
+        <div class="title-bar" id="media-win-title">
+          <div class="title-drag" id="media-win-drag"></div>
+          <div class="title-bar-text">Multimedia</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" onclick="minTab('media-win')"></button>
+            <button aria-label="Maximize" disabled></button>
+            <button aria-label="Close" onclick="closeTab('media-win')"></button>
+          </div>
+        </div>
+        <div class="window-body">
+          <div class="sunken-panel folder-content">
+    
+            <!-- Music Reviews Icon -->
+            <a href="reviews/music.html" id="music-review-icon" class="href-icon">
+                <div id="music-review-icon-png" class="href-icon-png">
+                  <div class="icon-overlay"></div>
+                  <img class="shortcut-png">
+                </div>
+                <p class="icon-label">Music Reviews</p>
+            </a>
+    
+            <!-- Film Reviews Icon -->
+            <a href="reviews/film.html" id="film-review-icon" class="href-icon">
+                <div id="film-review-icon-png" class="href-icon-png">
+                  <div class="icon-overlay"></div>
+                  <img class="shortcut-png">
+                </div>
+                <p class="icon-label">Film Reviews</p>
+            </a>
+            <!-- Music Player Icon
+                    <div id="music-player-icon" class="href-icon" draggable="true" tabindex="7">
+                      <div id="music-player-icon-png" class="href-icon-png">
+                        <div class="icon-overlay"></div>
+                      </div>
+                      <p class="icon-label">Music Player</p>
+                    </div>
+                  </div>  -->
+          </div>
+          <!-- Bottom Status Bar -->
+          <div class="status-bar">
+            <p class="status-bar-field">2 object(s)</p>
+            <p class="status-bar-field"></p>
+            <p class="status-bar-field"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Credits - Desktop window -->
+      <div class="window desktop-window" id="credits-win" onmousedown="bringToTop('credits-win')">
+        <div class="title-bar" id="credits-win-title">
+          <div class="title-drag" id="credits-win-drag"></div>
+          <div class="title-bar-text">Credits</div>
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" onclick="minTab('credits-win')"></button>
+            <button aria-label="Maximize" disabled></button>
+            <button aria-label="Close" onclick="closeTab('credits-win')"></button>
+          </div>
+        </div>      
+          <div class="window-body">
+            <iframe id="credits-body" src="content/credits.html" title="Credits" frameBorder='0' onload="iframeclick('credits-body')"></iframe>  
+          </div>
+      </div>
+
+       <!-- To Do List - Desktop window -->
+       <div class="window desktop-window" id="toDo-win" onmousedown="bringToTop('toDo-win')">
+        <div class="title-bar" id="toDo-win-title">
+          <div class="title-drag" id="toDo-win-drag"></div>
+          <div class="title-bar-text">To Do List</div>        
+          <div class="title-bar-controls">
+            <button aria-label="Minimize" onclick="minTab('toDo-win')"></button>
+            <button aria-label="Maximize" disabled></button>
+            <button aria-label="Close" onclick="closeTab('toDo-win')"></button>
+          </div>
+        </div>      
+          <div class="window-body">
+            <!-- To do list -->
+            <ul class="tree-view">
+              <li>
+               <details open="">
+                <summary>To Do:</summary>
+                <ul>
+                  <li class="list-done">Find and add emojis for chatbox</li>
+                  <li>Clean up HTML</li>
+                  <li>Clean up CSS</li>
+                  <li>
+                    <details>
+                      <summary>Elements to be made</summary>
+                      <ul>
+                        <li class="list-done">Credits page</li>
+                        <li class="list-done">Blog?</li>
+                        <li class="list-done">Changelog</li>
+                        <li>Music player</li>
+                        <li class="list-done">Reviews</li>
+                        <li>Toy box :)</li>
+                        <li class="list-done">Chatbox/Guestbook</li>
+                        <li>Terminal</li>
+                        <li class="list-done">Dedicated "To Do" list</li>
+                        <li>"Shutdown"</li>
+                      </ul>
+                    </details>
+                  </li>
+                  <li>
+                    <details>
+                      <summary>Functionality and Design</summary>
+                      <ul>
+                        <li class="list-done">Make taskbar flex depending on number of open windows and screen size</li>
+                        <li class="list-done">Create a way to toggle font choice</li>
+                        <li>Create accessible/mobile-friendly pages</li> 
+                        <li class="list-done">Add a clock to the taskbar</li>
+                        <li>Custom cursor?</li>  
+                      </ul>
+                    </details>
+                  </li>
+                  <li>
+                    <details>
+                      <summary>Content</summary>
+                      <ul>
+                        <li class="list-done">Rework "Welcome" window into something more informational</li>
+                        <li>Fill out "About Me" section</li>
+                        <li>Check to make sure "Credits" are fully up to date</li>
+                        <li>Review more media</li>
+                        <li>Write more blog posts</li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </details>
+             </li>
+            </ul>
+          </div>
+      </div>     
+
+    </main>
+
+  <!-- Taskbar/Footer -->
+  <footer>
+    <!-- Start Menu -->
+    <div id="startmenu">
+
+      <button class="program">
+        <img class="program-icon">
+        <p class="program-label">Program Label</p>
+      </button>
+
+      <button onclick="window.location.href='https://cerebraldatabank.neocities.org/cool_webpages/bsod';" class="program">
+          <img class="program-icon">
+          <img class="error-png">
+        <p class="program-label">Delete System32</p>
+      </button>
+
+      <button class="program" id="toDo" onclick="openTab('toDo-win')">
+        <img class="program-icon">
+        <p class="program-label">To Do List</p>
+      </button>
+
+      <div class="dividing-line-horz"></div>
+
+      <button class="program" id="credits" onclick="openTab('credits-win')">
+        <img class="program-icon">
+        <p class="program-label">Credits</p>
+      </button>
+
+      <button class="program" id="shutdown" onclick="openStart('startmenu')">
+        <img class="program-icon">
+        <p class="program-label">Shut Down...</p>
+      </button>
+
+    </div>
+    <!-- Taskbar -->
+    <button id="startbtn" tabindex="6" onclick="openStart('startmenu')">
+      <img>
+      <span class="btn-label">Start</span>
+    </button>
+    <div class="dividing-line-vert"></div>
+    <button class="active" id="welcome-win-btn" onclick="taskbarClick('welcome-win')">
+        <img>
+        <span class="btn-label">Welcome</span>
+    </button>
+    <button id="chat-win-btn" onclick="taskbarClick('chat-win')">
+      <img>
+      <span class="btn-label">Chattable</span>
+    </button>
+    <button id="changelog-win-btn" onclick="taskbarClick('changelog-win')">
+      <img>
+      <span class="btn-label">Changelog</span>
+    </button>
+    <button id="blog-win-btn" onclick="taskbarClick('blog-win')">
+      <img>
+      <span class="btn-label">Blog</span>
+    </button>
+    <button id="media-win-btn" onclick="taskbarClick('media-win')">
+      <img>
+      <span class="btn-label">Multimedia</span> 
+    </button>
+    <button id="credits-win-btn" onclick="taskbarClick('credits-win')">
+      <img>
+      <span class="btn-label">Credits</span>
+    </button>
+    <button id="toDo-win-btn" onclick="taskbarClick('toDo-win')">
+      <img>
+      <span class="btn-label">To Do List</span>
+    </button>
+    <div class="dividing-line-vert tb-space"></div>
+    <div class="status-bar-field">
+      <span id="clock"></span>
+    </div>
+  </footer>
+  
+<script src="script-home.js"></script>
+
+
+</body>
+
+<!-- Mirrored from richardnyxon.neocities.org/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 03 May 2025 21:16:53 GMT -->
+</html>
