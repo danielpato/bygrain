@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
   <meta charset="UTF-8">
-  <title>Matrix Rain Effect (Slower)</title>
+  <title>byGRAIN</title>
   <style>
     html, body {
       margin: 0;
@@ -13,56 +14,121 @@
     }
     canvas {
       display: block;
+      cursor: default; /* Default cursor */
+    }
+    .pointer-cursor {
+      cursor: pointer; /* The hand with the pointing finger */
     }
   </style>
 </head>
 <body>
   <canvas id="matrixCanvas"></canvas>
   <script>
+
     const canvas = document.getElementById('matrixCanvas');
     const ctx = canvas.getContext('2d');
 
-    // Set canvas size
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Characters to use
-    let letters = 'ABCDEFGHIJKLMNOPQRSTUVXYZ'.repeat(6).split('');
-    const fontSize = 10;
+    const letters = 'アァイィウエエオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const fontSize = 16;
     const columns = Math.floor(canvas.width / fontSize);
-
-    // Array of drop positions for each column
     const drops = Array(columns).fill(1);
 
+    // Position and dimensions for "byGRAIN"
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const byGRAINWidth = 7 * fontSize;
+    const byGRAINStartX = centerX - (3.5 * fontSize);
+    const byGRAINStartY = centerY - (fontSize / 2); // Adjust for text baseline
+
+    let lightUp = false;
+    let lightTimer = 0;
+
+    // Function to check if mouse is over "byGRAIN"
+    function isMouseOverByGRAIN(mouseX, mouseY) {
+      return mouseX >= byGRAINStartX &&
+             mouseX <= byGRAINStartX + byGRAINWidth &&
+             mouseY >= byGRAINStartY - fontSize && // Adjust for text height
+             mouseY <= byGRAINStartY + 5; // Approximate bottom of text
+    }
+
+    canvas.addEventListener('mousemove', (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left;
+      const mouseY = event.clientY - rect.top;
+
+      if (isMouseOverByGRAIN(mouseX, mouseY)) {
+        canvas.classList.add('pointer-cursor');
+      } else {
+        canvas.classList.remove('pointer-cursor');
+      }
+    });
+
+    canvas.addEventListener('click', (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const clickY = event.clientY - rect.top;
+
+      if (isMouseOverByGRAIN(clickX, clickY)) {
+        window.location.href = 'https://bygrain.com';
+      }
+    });
+
     function draw() {
-      // Slightly fade the background
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      // Fade effect (slower fade)
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.fillStyle = '#0F0';
       ctx.font = fontSize + 'px monospace';
 
-      for (let i = 0; i < drops.length; i++) {
-        const text = letters[Math.floor(Math.random() * letters.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+      lightUp = false;
 
-        // Reset drop with a slight chance
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
+      for (let i = 0; i < drops.length; i++) {
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+        const char = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(char, x, y);
+
+        const byGRAINXCols = [];
+        for (let j = 0; j < 7; j++) {
+          const col = Math.floor((byGRAINStartX + j * fontSize) / fontSize);
+          byGRAINXCols.push(col);
+          if (Math.floor(y / fontSize) === Math.floor(centerY / fontSize) && i === col) {
+            lightUp = true;
+          }
+        }
+
+        if (y > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
 
         drops[i]++;
       }
+
+      if (lightUp) lightTimer = 20;
+      if (lightTimer > 0) {
+        ctx.fillStyle = '#0F0';
+        ctx.font = `bold ${fontSize}px monospace`;
+        ctx.fillText("byGRAIN", byGRAINStartX, centerY);
+        lightTimer--;
+      } else {
+        ctx.fillStyle = 'rgba(0, 255, 0, 0.1)';
+        ctx.fillText("byGRAIN", byGRAINStartX, centerY);
+      }
+
+      setTimeout(draw, 66);
     }
 
-    // Slowed down to ~30fps
-    setInterval(draw, 33);
+    draw();
 
-    // Resize canvas when window resizes
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
+
   </script>
 </body>
 </html>
