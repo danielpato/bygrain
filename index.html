@@ -1183,6 +1183,15 @@ footer > button > img {
 #chat-win-btn {
   display: flex;
 }
+#changelog-win-btn {
+  display: flex;
+}
+#blog-win-btn {
+  display: flex;
+}
+#media-win-btn {
+  display: flex;
+}
 
 /* Clock */
 .tb-space {
@@ -2136,7 +2145,7 @@ chattable.commands = {
                           <summary>Content (mobile-friendly)</summary>
                           <ul>
                               <li><a href="https://www.instagram.com/by.grain">Blog</a></li>
-                              <li><a href="/content/chat.html">Chat</a> (via Chattable)</li>
+                              <li><a href="/content/chat.html">Chat</a></li>
                               <li><a href="/content/credits.html">Credits</a></li>
                           </ul>
                         </details>
@@ -2175,7 +2184,7 @@ chattable.commands = {
       <div class="window desktop-window open" id="chat-win" onmousedown="bringToTop('chat-win')">
         <div class="title-bar" id="chat-win-title">
           <div class="title-drag" id="chat-win-drag" style="height: 0px;"></div>
-          <div class="title-bar-text">Chattable</div>
+          <div class="title-bar-text">Chat</div>
           <div class="title-bar-controls">
             <button aria-label="Minimize" onclick="minTab('chat-win')"></button>
             <button aria-label="Maximize" disabled=""></button>
@@ -2196,7 +2205,7 @@ chattable.commands = {
       <div class="window desktop-window open" id="changelog-win" onmousedown="bringToTop('changelog-win')">
         <div class="title-bar inactive" id="changelog-win-title">
           <div class="title-drag" id="changelog-win-drag" style="height: 0px;"></div>
-          <div class="title-bar-text">Changelog</div>        
+          <div class="title-bar-text">Drops</div>        
           <div class="title-bar-controls">
             <button aria-label="Minimize" onclick="minTab('changelog-win')"></button>
             <button aria-label="Maximize" disabled=""></button>
@@ -2458,11 +2467,11 @@ chattable.commands = {
     </button>
     <button id="chat-win-btn" onclick="taskbarClick('chat-win')">
       <img>
-      <span class="btn-label">Chattable</span>
+      <span class="btn-label">Chat</span>
     </button>
     <button id="changelog-win-btn" onclick="taskbarClick('changelog-win')">
       <img>
-      <span class="btn-label">Changelog</span>
+      <span class="btn-label">Drops</span>
     </button>
     <button id="blog-win-btn" onclick="taskbarClick('blog-win')">
       <img>
