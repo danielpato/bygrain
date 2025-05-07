@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Matrix Rain Effect</title>
+  <title>Matrix Rain Effect (Slower)</title>
   <style>
     html, body {
       margin: 0;
@@ -22,44 +22,43 @@
     const canvas = document.getElementById('matrixCanvas');
     const ctx = canvas.getContext('2d');
 
-    // Resize canvas to full screen
+    // Set canvas size
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Characters to use in the rain
-    const letters = 'アァイィウエエオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    const fontSize = 16;
+    // Characters to use
+    let letters = 'ABCDEFGHIJKLMNOPQRSTUVXYZ'.repeat(6).split('');
+    const fontSize = 10;
     const columns = Math.floor(canvas.width / fontSize);
+
+    // Array of drop positions for each column
     const drops = Array(columns).fill(1);
 
     function draw() {
-      // Translucent black background to fade the characters
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      // Slightly fade the background
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Set the text style
-      ctx.fillStyle = '#0F0'; // Green
+      ctx.fillStyle = '#0F0';
       ctx.font = fontSize + 'px monospace';
 
-      // Loop over drops
       for (let i = 0; i < drops.length; i++) {
-        const char = letters[Math.floor(Math.random() * letters.length)];
-        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-        // Reset drop randomly
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        // Reset drop with a slight chance
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
           drops[i] = 0;
         }
 
         drops[i]++;
       }
-
-      requestAnimationFrame(draw);
     }
 
-    draw();
+    // Slowed down to ~30fps
+    setInterval(draw, 33);
 
-    // Optional: Resize canvas if the window is resized
+    // Resize canvas when window resizes
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
