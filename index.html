@@ -1186,12 +1186,7 @@ footer > button > img {
 #changelog-win-btn {
   display: flex;
 }
-#blog-win-btn {
-  display: flex;
-}
-#media-win-btn {
-  display: flex;
-}
+
 
 /* Clock */
 .tb-space {
@@ -1317,6 +1312,7 @@ border: 2px groove transparent;
 /* Positions the draggable box "blog-win" */
 #blog-win {
   position: absolute;
+  display: none;
   top: 100px; 
   left: 900px;
 }
@@ -1346,6 +1342,7 @@ border: 2px groove transparent;
 /* Positions the draggable box "media-win" */
 #media-win {
   position: absolute;
+  display: none;
   top: 460px;
   left: 735px;
   height: 200px;
@@ -2270,7 +2267,7 @@ chattable.commands = {
       </div>
       
       <!-- Blog - Desktop window -->
-      <div class="window desktop-window open" id="blog-win" onmousedown="bringToTop('blog-win')">
+      <div class="window desktop-window" id="blog-win" onmousedown="bringToTop('blog-win')">
         <div class="title-bar" id="blog-win-title">
           <div class="title-drag" id="blog-win-drag" style="height: 0px;"></div>
           <div class="title-bar-text">Blog</div>
@@ -2286,7 +2283,7 @@ chattable.commands = {
       </div>
 
       <!-- Media - Desktop window -->
-      <div class="window desktop-window open" id="media-win" onmousedown="bringToTop('media-win')">
+      <div class="window desktop-window" id="media-win" onmousedown="bringToTop('media-win')">
         <div class="title-bar" id="media-win-title">
           <div class="title-drag" id="media-win-drag" style="height: 0px;"></div>
           <div class="title-bar-text">Multimedia</div>
