@@ -28,20 +28,39 @@
     const canvas = document.getElementById('matrixCanvas');
     const ctx = canvas.getContext('2d');
 
+    // Initial setup for canvas size
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
     const letters = 'アァイィウエエオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    const fontSize = 16;
-    const columns = Math.floor(canvas.width / fontSize);
-    const drops = Array(columns).fill(1);
+    
+    // Original fontSize for the "rain" effect
+    const fontSize = 16; 
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
 
-    // Position and dimensions for "byGRAIN"
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const byGRAINWidth = 7 * fontSize;
-    const byGRAINStartX = centerX - (3.5 * fontSize);
-    const byGRAINStartY = centerY - (fontSize / 2); // Adjust for text baseline
+    // --- Changes Start Here ---
+
+    // Calculate dynamic font size for "byGRAIN" to be 10% of screen width
+    // "byGRAIN" has 7 characters. We want 7 * byGRAINFontSize = 0.1 * canvas.width
+    let byGRAINFontSize;
+    let byGRAINWidth;
+    let byGRAINStartX;
+    let byGRAINStartY;
+
+    function updateByGRAINTextProperties() {
+      byGRAINFontSize = (0.1 * canvas.width) / 7; // 10% of width distributed among 7 characters
+      byGRAINWidth = 7 * byGRAINFontSize;
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      byGRAINStartX = centerX - (byGRAINWidth / 2); // Center the text horizontally
+      byGRAINStartY = centerY + (byGRAINFontSize / 3); // Adjust vertically to center it better
+    }
+
+    // Initialize the properties on load
+    updateByGRAINTextProperties();
+
+    // --- Changes End Here ---
 
     let lightUp = false;
     let lightTimer = 0;
@@ -50,8 +69,9 @@
     function isMouseOverByGRAIN(mouseX, mouseY) {
       return mouseX >= byGRAINStartX &&
              mouseX <= byGRAINStartX + byGRAINWidth &&
-             mouseY >= byGRAINStartY - fontSize && // Adjust for text height
-             mouseY <= byGRAINStartY + 5; // Approximate bottom of text
+             // Adjust y bounds for the dynamically sized text
+             mouseY >= byGRAINStartY - byGRAINFontSize && 
+             mouseY <= byGRAINStartY + (byGRAINFontSize * 0.2); 
     }
 
     canvas.addEventListener('mousemove', (event) => {
@@ -82,7 +102,7 @@
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.fillStyle = '#0F0';
-      ctx.font = fontSize + 'px monospace';
+      ctx.font = fontSize + 'px monospace'; // This font size is for the "rain"
 
       lightUp = false;
 
@@ -92,16 +112,13 @@
         const char = letters[Math.floor(Math.random() * letters.length)];
         ctx.fillText(char, x, y);
 
-        const byGRAINXCols = [];
-        for (let j = 0; j < 7; j++) {
-          const col = Math.floor((byGRAINStartX + j * fontSize) / fontSize);
-          byGRAINXCols.push(col);
-          if (Math.floor(y / fontSize) === Math.floor(centerY / fontSize) && i === col) {
-            lightUp = true;
-          }
+        // Check if a character is around the "byGRAIN" text area for lighting up
+        if (x >= byGRAINStartX - fontSize && x <= byGRAINStartX + byGRAINWidth + fontSize &&
+            y >= byGRAINStartY - byGRAINFontSize && y <= byGRAINStartY + byGRAINFontSize) {
+          lightUp = true;
         }
 
-        if (y > canvas.height && Math.random() > 0.975) {
+        if (y * 2 > canvas.height && Math.random() > 0.975) {
           drops[i] = 0;
         }
 
@@ -111,12 +128,13 @@
       if (lightUp) lightTimer = 20;
       if (lightTimer > 0) {
         ctx.fillStyle = '#0F0';
-        ctx.font = `bold ${fontSize}px monospace`;
-        ctx.fillText("byGRAIN", byGRAINStartX, centerY);
+        ctx.font = `bold ${byGRAINFontSize}px monospace`;
+        ctx.fillText("byGRAIN", byGRAINStartX, byGRAINStartY); // Fixed typo here
         lightTimer--;
       } else {
         ctx.fillStyle = 'rgba(0, 255, 0, 0.1)';
-        ctx.fillText("byGRAIN", byGRAINStartX, centerY);
+        ctx.font = `${byGRAINFontSize}px monospace`;
+        ctx.fillText("byGRAIN", byGRAINStartX, byGRAINStartY);
       }
 
       setTimeout(draw, 66);
@@ -127,6 +145,9 @@
     window.addEventListener('resize', () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      columns = Math.floor(canvas.width / fontSize);
+      drops = Array(columns).fill(1);
+      updateByGRAINTextProperties();
     });
 
   </script>
