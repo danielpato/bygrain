@@ -1,1 +1,146 @@
-yoyo
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
+  <meta charset="UTF-8">
+  <title>byGRAIN</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+      height: 100%;
+    }
+    canvas {
+      display: block;
+      cursor: default;
+    }
+    .pointer-cursor {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrixCanvas"></canvas>
+  <script>
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const letters = 'アァイィウエエオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    
+    const fontSize = 16; 
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+
+    let byGRAINFontSize;
+    let byGRAINStartX;
+    let byGRAINStartY;
+
+    function updateByGRAINTextProperties() {
+      // Minimum width is 100px total → min font size = 100 / 7
+      byGRAINFontSize = Math.max((0.1 * canvas.width) / 7, 100 / 7);
+      ctx.font = `${byGRAINFontSize}px monospace`;
+      ctx.textAlign = "center";
+      byGRAINStartX = canvas.width / 2;
+      byGRAINStartY = (canvas.height / 2) + (byGRAINFontSize / 3);
+    }
+
+    updateByGRAINTextProperties();
+
+    let lightUp = false;
+    let lightTimer = 0;
+
+    function isMouseOverByGRAIN(mouseX, mouseY) {
+      const approxWidth = Math.max(0.3 * canvas.width, 500); // Min width 500px
+      return mouseX >= (byGRAINStartX - approxWidth / 2) &&
+             mouseX <= (byGRAINStartX + approxWidth / 2) &&
+             mouseY >= byGRAINStartY - byGRAINFontSize &&
+             mouseY <= byGRAINStartY + (byGRAINFontSize * 0.2); 
+    }
+
+    canvas.addEventListener('mousemove', (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left;
+      const mouseY = event.clientY - rect.top;
+
+      if (isMouseOverByGRAIN(mouseX, mouseY)) {
+        canvas.classList.add('pointer-cursor');
+      } else {
+        canvas.classList.remove('pointer-cursor');
+      }
+    });
+
+    canvas.addEventListener('click', (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const clickY = event.clientY - rect.top;
+
+      if (isMouseOverByGRAIN(clickX, clickY)) {
+        window.location.href = 'https://bygrain.com';
+      }
+    });
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#0F0';
+      ctx.font = fontSize + 'px monospace';
+
+      lightUp = false;
+
+      for (let i = 0; i < drops.length; i++) {
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+        const char = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(char, x, y);
+
+        if (x >= byGRAINStartX - 100 &&
+            x <= byGRAINStartX + 100 &&
+            y >= byGRAINStartY - byGRAINFontSize &&
+            y <= byGRAINStartY + byGRAINFontSize) {
+          lightUp = true;
+        }
+
+        if (y * 2 > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+
+      ctx.font = `bold ${byGRAINFontSize}px monospace`;
+      ctx.textAlign = "center";
+
+      if (lightUp) {
+        ctx.fillStyle = '#0F0';
+        ctx.fillText("byGRAIN", byGRAINStartX, byGRAINStartY);
+        lightTimer = 20;
+      } else if (lightTimer > 0) {
+        ctx.fillStyle = '#0F0';
+        ctx.fillText("byGRAIN", byGRAINStartX, byGRAINStartY);
+        lightTimer--;
+      } else {
+        ctx.fillStyle = 'rgba(0, 255, 0, 0.1)';
+        ctx.fillText("byGRAIN", byGRAINStartX, byGRAINStartY);
+      }
+
+      setTimeout(draw, 66);
+    }
+
+    draw();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      columns = Math.floor(canvas.width / fontSize);
+      drops = Array(columns).fill(1);
+      updateByGRAINTextProperties();
+    });
+  </script>
+</body>
+</html>
