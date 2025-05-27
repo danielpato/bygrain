@@ -55,7 +55,7 @@
     let lightTimer = 0;
 
     function isMouseOverByGRAIN(mouseX, mouseY) {
-      const approxWidth = Math.max(0.1 * canvas.width, 250); // Min width 100px
+      const approxWidth = Math.max(0.1 * canvas.width, 500); // Min width 500px
       return mouseX >= (byGRAINStartX - approxWidth / 2) &&
              mouseX <= (byGRAINStartX + approxWidth / 2) &&
              mouseY >= byGRAINStartY - byGRAINFontSize &&
