@@ -41,7 +41,8 @@
     let byGRAINStartY;
 
     function updateByGRAINTextProperties() {
-      byGRAINFontSize = (0.1 * canvas.width) / 7; // 10% of width across 7 chars
+      // Minimum width is 100px total → min font size = 100 / 7
+      byGRAINFontSize = Math.max((0.1 * canvas.width) / 7, 100 / 7);
       ctx.font = `${byGRAINFontSize}px monospace`;
       ctx.textAlign = "center";
       byGRAINStartX = canvas.width / 2;
@@ -54,7 +55,7 @@
     let lightTimer = 0;
 
     function isMouseOverByGRAIN(mouseX, mouseY) {
-      const approxWidth = 0.1 * canvas.width;
+      const approxWidth = Math.max(0.1 * canvas.width, 100); // Min width 100px
       return mouseX >= (byGRAINStartX - approxWidth / 2) &&
              mouseX <= (byGRAINStartX + approxWidth / 2) &&
              mouseY >= byGRAINStartY - byGRAINFontSize &&
@@ -98,8 +99,8 @@
         const char = letters[Math.floor(Math.random() * letters.length)];
         ctx.fillText(char, x, y);
 
-        if (x >= byGRAINStartX - 0.1 * canvas.width &&
-            x <= byGRAINStartX + 0.1 * canvas.width &&
+        if (x >= byGRAINStartX - 100 &&
+            x <= byGRAINStartX + 100 &&
             y >= byGRAINStartY - byGRAINFontSize &&
             y <= byGRAINStartY + byGRAINFontSize) {
           lightUp = true;
