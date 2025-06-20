@@ -121,7 +121,7 @@ a {
 }
 
 #settings {
-    background-image: url('https://richardnyxon.neocities.org/i/win98/gears_tweakui_a-0.png');
+    background-image: url('/images/profile.png');
     height: 16px;
     width: 16px;
 }
@@ -271,7 +271,7 @@ blockquote {
 #emojiTrayToggle {
     top: 7px;
     right: -2px;
-    background-image: url('https://richardnyxon.neocities.org/i/win98/utopia_smiley.png');
+    background-image: url('images/utopia_smiley.png');
     background-repeat: no-repeat;
     background-size: auto;
 }
