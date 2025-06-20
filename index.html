@@ -2052,23 +2052,21 @@ chattable.commands = {
           </div>
         </div>      
           <div class="window-body">
-            <p>Welcome to my website! Things are obviously still under construction here, but feel free to poke around what <b>does</b> exist.</p>
-            <p>This website is <b>not</b> optimized for mobile. There are many draggable elements which don't work with touchscreens. I'll get around to making a mobile page at some point, but that's just not a priority at the moment.</p>
-            <p>To the left, you'll see some icons you can click on. Go ahead and give them a go! There's not anything too interesting here yet, but it'll get there eventually.</p>
+            <p>A <b>byGRAIN</b> colabora com artistas para exprimir os seus projectos através de experiências visuais, narrativas e universos de ideias, design e vídeo.</p>
 
             <menu role="tablist">
-              <button id="tab1" role="tab" aria-controls="panel1" tabindex="7">About Me</button>
-              <button id="tab2" role="tab" aria-controls="panel2" tabindex="8">Activity</button>
-              <button id="tab3" role="tab" aria-controls="panel3" tabindex="9" aria-selected="true">Sitemap</button>
-              <button id="tab4" role="tab" aria-controls="panel4" tabindex="10">Options</button>
+              <button id="tab1" role="tab" aria-controls="panel1" tabindex="7"aria-selected="true">TV</button>
+              <button id="tab3" role="tab" aria-controls="panel3" tabindex="8">Studio</button>
+              <button id="tab4" role="tab" aria-controls="panel4" tabindex="9">Options</button>
+              <button id="tab5" role="tab" aria-controls="panel5" tabindex="10">Crew</button>
             </menu>
 
-            <div id="panel1" aria-labelledby="tab1" aria-hidden="true" class="window" role="tabpanel">
+            <div id="panel1" aria-labelledby="tab1" class="window" role="tabpanel">
               <div class="window-body">
-                <p>Uhhhh..... It's coming soon lol</p>
+                <p>As nossas mais recentes criações</p>
+                <iframe width="355" height="199" src="https://www.youtube.com/embed/videoseries?si=DoRPzF7UjSHDAseB&amp;list=PLDVQBwGAV6YQEA83XMTopiUwMA_83UQlC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               </div>
             </div>
-
             <div id="panel2" aria-labelledby="tab2" aria-hidden="true" class="window" role="tabpanel">
               <div class="window-body">
                 <ul class="tree-view">
@@ -2120,38 +2118,12 @@ chattable.commands = {
               </div>
             </div>
 
-            <div id="panel3" aria-labelledby="tab3" class="window" role="tabpanel">
+            <div id="panel3" aria-labelledby="tab3" aria-hidden="true" class="window" role="tabpanel">
               <div class="window-body">
-                <ul class="tree-view">
-                  <li>
-                   <details open="">
-                    <summary><b>Sitemap</b></summary>
-                    <ul>
-                      <li>Home</li>
-                      <li>
-                        <details>
-                          <summary>Reviews</summary>
-                          <ul>
-                            <li><a href="/reviews/film.html">Film</a></li>
-                            <li><a href="/reviews/music.html">Music</a></li>
-                          </ul>
-                        </details>
-                      </li>
-                      <li>
-                        <details>
-                          <summary>Content (mobile-friendly)</summary>
-                          <ul>
-                              <li><a href="https://www.instagram.com/by.grain">Blog</a></li>
-                              <li><a href="/content/chat.html">Chat</a></li>
-                              <li><a href="/content/credits.html">Credits</a></li>
-                          </ul>
-                        </details>
-                      </li>
-                      <li>Shutdown (wip)</li>
-                    </ul>
-                  </details>
-                 </li>
-                </ul>
+                <div class="window-body">
+                <p>O nosso <b>habitat criativo</b> no Chiado.</p>
+                <img src="studio.jpg" alt="byGRAIN Studio" style="width:335px;height:200px;">
+              </div>
               </div>
             </div>
 
@@ -2172,6 +2144,13 @@ chattable.commands = {
                     <label for="font3">Monospace</label>
                   </div>
                 </fieldset>
+              </div>
+            </div>
+            <div id="panel5" aria-labelledby="tab5" aria-hidden="true" class="window" role="tabpanel">
+              <div class="window-body">
+                <p><b>Daniel Pato</b> - Creative Director, Producer, Designer</p>
+                <p><b>Ruben Mendes</b> - Director, Creative Director, Editor, DoP</p>
+                <p><b>Santiago Caiado</b> - 3D Artist, VFX, Designer</p>
               </div>
             </div>
           </div>
@@ -2215,8 +2194,8 @@ chattable.commands = {
               <table class="interactive">
                 <thead>
                   <tr>
-                    <th>Date</th>
-                    <th>Changes Made</th>
+                    <th>Data</th>
+                    <th>Peça</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -2227,6 +2206,14 @@ chattable.commands = {
 <tr class="highlighted">
   <td>??? ??, 2025</td>
   <td>Loading...</td>
+</tr>
+			<tr>
+  <td>Jun 06, 2025</td>
+  <td><a href="https://www.youtube.com/watch?v=bsFt4hJeePU" target="_blank">Van Zee & FRANKIEONTHEGUITAR: Bravos</a></td>
+</tr>
+			<tr>
+  <td>May 30, 2025</td>
+  <td><a href="https://www.youtube.com/watch?v=F11eg4khm-4" target="_blank">YURI NR5 - SS</a></td>
 </tr>
 			<tr>
   <td>Mar 05, 2025</td>
@@ -2586,7 +2573,7 @@ function taskbarClick(win) {
     }
     else {
       bringToTop(win);
-    }
+    }we
   }
   // if not open
   else {
