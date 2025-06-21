@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>PhotoBooth 98</title>
+  <title>byGRAIN Cam</title>
   <style>
     body {
       background: #c0c0c0;
@@ -20,13 +20,13 @@
     video {
       transform: scaleX(-1);
       border: 2px solid #000;
-      width: 100%;
-      max-width: 600px;
+      height: 300px;
+      width: auto;
       margin-bottom: 20px;
     }
 
     canvas {
-      display: none; /* Keep the original canvas hidden as it's used for capturing */
+      display: none; /* Used only for capturing */
     }
 
     button {
@@ -39,7 +39,7 @@
       border-bottom-color: #404040;
       box-shadow: inset -1px -1px #808080, inset 1px 1px #fff;
       cursor: pointer;
-      margin-bottom: 20px; /* Add some space below the button */
+      margin: 0 5px 20px 5px;
     }
 
     button:active {
@@ -49,59 +49,86 @@
       box-shadow: inset 1px 1px #808080, inset -1px -1px #fff;
     }
 
-    /* Style for the displayed captured image */
     #capturedImage {
-        border: 2px solid #000;
-        max-width: 100%;
-        height: auto;
-        display: block; /* Ensures it takes its own line */
-        margin: 20px auto 0 auto; /* Center the image and add margin above */
+      border: 2px solid #000;
+      height: 300px;
+      width: auto;
+      display: block;
+      margin: 20px auto 0 auto;
     }
   </style>
 </head>
 <body>
-
-  <h1>🎉 Smile for the Camera! 🎉</h1>
   <video id="video" autoplay playsinline></video><br>
   <button id="captureBtn">📸 Take Photo</button>
+  <button id="timerBtn">⏱ 3 sec timer</button>
   <canvas id="canvas"></canvas>
-
   <img id="capturedImage" style="display:none;">
 
   <script>
     const video = document.getElementById("video");
     const canvas = document.getElementById("canvas");
     const captureBtn = document.getElementById("captureBtn");
+    const timerBtn = document.getElementById("timerBtn");
     const capturedImage = document.getElementById("capturedImage");
 
+    // Start the webcam
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => video.srcObject = stream)
       .catch(err => alert("Webcam error: " + err));
 
-    captureBtn.addEventListener("click", () => {
+    // Regular "Take Photo" button
+    captureBtn.addEventListener("click", takePhoto);
+
+    // Timer Button Logic
+    timerBtn.addEventListener("click", () => {
+      let countdown = 3;
+      const originalText = timerBtn.textContent;
+
+      timerBtn.disabled = true;
+      timerBtn.textContent = countdown;
+
+      const interval = setInterval(() => {
+        countdown--;
+        if (countdown > 0) {
+          timerBtn.textContent = countdown;
+        } else {
+          clearInterval(interval);
+          timerBtn.textContent = "Snap";
+          takePhoto();
+
+          setTimeout(() => {
+            timerBtn.textContent = originalText;
+            timerBtn.disabled = false;
+          }, 1000);
+        }
+      }, 1000);
+    });
+
+    // Photo Capture Logic
+    function takePhoto() {
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       const ctx = canvas.getContext("2d");
 
-      // Mirror canvas to match video
+      // Mirror effect
       ctx.translate(canvas.width, 0);
       ctx.scale(-1, 1);
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
+5
       const imageData = canvas.toDataURL("image/png");
-      
-      // Display the captured image below the camera feed
+
       capturedImage.src = imageData;
       capturedImage.style.display = 'block';
 
-      // Automatically download the photo
+      // Auto-download
       const link = document.createElement("a");
       link.href = imageData;
-      link.download = `photobooth_${Date.now()}.png`; // Unique filename
-      document.body.appendChild(link); // Append to body to make it clickable in some browsers
+      link.download = `photobooth_${Date.now()}.png`;
+      document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link); // Clean up the link element
-    });
+      document.body.removeChild(link);
+    }
   </script>
 </body>
 </html>
