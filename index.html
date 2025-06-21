@@ -1358,8 +1358,8 @@ border: 2px groove transparent;
   position: absolute;
   display: none;
   width: 300px;
-  top: 300px;
-  left: 300px;
+  top: 40px;
+  left: 945px;
 }
 
 /* --------- To Do List -------------- */
@@ -1549,6 +1549,11 @@ a.href-icon {
 /* Chat icon */
 #chat-png {
   --icon-png: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAG1BMVEUAAAAAAACAgIDAwMD/////AACAAAAAAIAAAP9Yj2HtAAAAAXRSTlMAQObYZgAAAAFiS0dEBI9o2VEAAAAHdElNRQfiBhoANiXlpBdAAAABXElEQVQ4y42TPXKEMAyFodoWjMmkxTcwYpKalS+QAm7AXgHaVHDslX8xxpmJZihWT5/0rLWL4n9R1hSZfG2jypVnlDOfdIvyFyQGIqSsmRAZwf4SXSKELqy7CFF3Rh+AdMPjoV0NSqHM2KG8UvIG1LUKQpkKshNVVmCsr66dtB2uFEB3HQGIKGnAyLGKO8FAkREaREc4V17Q5Z3gd4HKyY4TdC8nNESQncHkAYJgJowcDIFmuaWvpxkNNpbwrqyj09XTC3zwIfWQnt0J1EOwD4IHwE0PSwRXT+fUwhiW6BECEMwpvF+HPLmS17tjffWMCBGu57lb1LuCIJR2t25GJBRmtfbgdHncH2sZewaA9gX4tZxIaaqp4zy/YJl/EkK0C8Vrmk5kNceAj1lHO53ItuorAreH9jgOzcR2gkAKfG/p+96Ofd9X2Pbfm7BRrMeRII/dxueaIvl3/1e8AYOsgIp+47wjAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTA2LTI2VDAwOjU0OjM3LTA0OjAws+TK4AAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0wNi0yNlQwMDo1NDozNy0wNDowMMK5clwAAAAASUVORK5CYII=");
+  background-image: var(--icon-png);
+}
+
+#photobooth-png {
+  --icon-png: url("/images/photobooth.png");
   background-image: var(--icon-png);
 }
 
@@ -2038,6 +2043,13 @@ chattable.commands = {
           </div>
           <p class="icon-label">byGRAIN Store</p>
         </div>
+        <!--Icon photobooth -->
+        <div id="chat-icon" class="desktop-icon" draggable="true" tabindex="5">
+          <div id="photobooth-png" class="desktop-icon-png" onclick="openTab('toDo-win')">
+            <div class="icon-overlay"></div>
+          </div>
+          <p class="icon-label">Cam</p>
+        </div>
       </div>
       
       <!-- Welcome - Desktop window -->
@@ -2335,10 +2347,10 @@ chattable.commands = {
       </div>
 
        <!-- To Do List - Desktop window -->
-       <div class="window desktop-window" id="toDo-win" onmousedown="bringToTop('toDo-win')">
+       <div class="window desktop-window" id="toDo-win" style="min-width: 800px; min-height: 800px;" onmousedown="bringToTop('toDo-win')">
         <div class="title-bar" id="toDo-win-title">
           <div class="title-drag" id="toDo-win-drag" style="height: 0px;"></div>
-          <div class="title-bar-text">To Do List</div>        
+          <div class="title-bar-text">byGRAIN Cam</div>        
           <div class="title-bar-controls">
             <button aria-label="Minimize" onclick="minTab('toDo-win')"></button>
             <button aria-label="Maximize" disabled=""></button>
@@ -2346,60 +2358,9 @@ chattable.commands = {
           </div>
         </div>      
           <div class="window-body">
-            <!-- To do list -->
-            <ul class="tree-view">
-              <li>
-               <details open="">
-                <summary>To Do:</summary>
-                <ul>
-                  <li class="list-done">Find and add emojis for chatbox</li>
-                  <li>Clean up HTML</li>
-                  <li>Clean up CSS</li>
-                  <li>
-                    <details>
-                      <summary>Elements to be made</summary>
-                      <ul>
-                        <li class="list-done">Credits page</li>
-                        <li class="list-done">Blog?</li>
-                        <li class="list-done">Changelog</li>
-                        <li>Music player</li>
-                        <li class="list-done">Reviews</li>
-                        <li>Toy box :)</li>
-                        <li class="list-done">Chatbox/Guestbook</li>
-                        <li>Terminal</li>
-                        <li class="list-done">Dedicated "To Do" list</li>
-                        <li>"Shutdown"</li>
-                      </ul>
-                    </details>
-                  </li>
-                  <li>
-                    <details>
-                      <summary>Functionality and Design</summary>
-                      <ul>
-                        <li class="list-done">Make taskbar flex depending on number of open windows and screen size</li>
-                        <li class="list-done">Create a way to toggle font choice</li>
-                        <li>Create accessible/mobile-friendly pages</li> 
-                        <li class="list-done">Add a clock to the taskbar</li>
-                        <li>Custom cursor?</li>  
-                      </ul>
-                    </details>
-                  </li>
-                  <li>
-                    <details>
-                      <summary>Content</summary>
-                      <ul>
-                        <li class="list-done">Rework "Welcome" window into something more informational</li>
-                        <li>Fill out "About Me" section</li>
-                        <li>Check to make sure "Credits" are fully up to date</li>
-                        <li>Review more media</li>
-                        <li>Write more blog posts</li>
-                      </ul>
-                    </details>
-                  </li>
-                </ul>
-              </details>
-             </li>
-            </ul>
+        <iframe id="credits-body" src="webcam.html" title="Credits" frameborder="0"
+  onload="iframeclick('credits-body')"
+  style="width: 778px; height: 788px;"></iframe>
           </div>
       </div>     
 
@@ -2757,7 +2718,7 @@ function changeTabs(e) {
 // Font options
 const fontOptions = document.querySelectorAll('input[name="font-options"]');
 const body = document.getElementById('body');
-
+by
 for(const fontOption of fontOptions){
     fontOption.addEventListener('change', changeFont);
 }        
