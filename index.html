@@ -2191,85 +2191,31 @@ chattable.commands = {
           </div>
       </div>
         
-      <!-- Changelog - Desktop window -->
-      <div class="window desktop-window open" id="changelog-win" onmousedown="bringToTop('changelog-win')">
-        <div class="title-bar inactive" id="changelog-win-title">
-          <div class="title-drag" id="changelog-win-drag" style="height: 0px;"></div>
-          <div class="title-bar-text">Drops</div>        
-          <div class="title-bar-controls">
-            <button aria-label="Minimize" onclick="minTab('changelog-win')"></button>
-            <button aria-label="Maximize" disabled=""></button>
-            <button aria-label="Close" onclick="closeTab('changelog-win')"></button>
-          </div>
-        </div>      
-          <div class="window-body">
-            <!-- Actual Changelog -->
-            <div class="sunken-panel" id="changelog-body">
-              <table class="interactive">
-                <thead>
-                  <tr>
-                    <th>Data</th>
-                    <th>Peça</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>---<!--Date--></td>
-                    <td>---<!--Title--></td>
-                  </tr>
-<tr class="highlighted">
-  <td>??? ??, 2025</td>
-  <td>Loading...</td>
-</tr>
-			<tr>
-  <td>Jun 27, 2025</td>
-  <td><a href="https://www.youtube.com/watch?v=JHAiRlHhkw8&list=PLDVQBwGAV6YQEA83XMTopiUwMA_83UQlC" target="_blank">ATJ - JAMAICA</a></td>
-</tr>
-			<tr>
-  <td>Jun 06, 2025</td>
-  <td><a href="https://www.youtube.com/watch?v=bsFt4hJeePU" target="_blank">Van Zee & FRANKIEONTHEGUITAR: Bravos</a></td>
-</tr>
-			<tr>
-  <td>May 30, 2025</td>
-  <td><a href="https://www.youtube.com/watch?v=F11eg4khm-4" target="_blank">YURI NR5 - SS</a></td>
-</tr>
-			<tr>
-  <td>Mar 05, 2025</td>
-  <td><a href="https://www.youtube.com/watch?v=vTycaytU1II" target="_blank">Van Zee & FRANKIEONTHEGUITAR: Nessa Chama</a></td>
-</tr>
-<tr>
-  <td>Feb 25, 2025</td>
-    <td><a href="https://www.youtube.com/watch?v=liMYJqi94lg" target="_blank">Van Zee & FRANKIEONTHEGUITAR: Trágico</a></td>
-</tr>
-<tr>
-    <td>Feb 18, 2025</td>
-    <td><a href="https://www.youtube.com/watch?v=vgCRpYvdAi8" target="_blank">Van Zee & FRANKIEONTHEGUITAR: Insular</a></td>
-</tr>
-<tr>
-  <td>Jan 22, 2025</td>
-  <td><a href="https://www.youtube.com/watch?v=vi0didVAqjU" target="_blank">SleepyThePrince & DJ Dadda: MIRROR</a></td>
-</tr>
-<tr>
-    <td>Jan 10, 2025</td>
-    <td><a href="https://www.youtube.com/watch?v=rvyHDXUEgn4" target="_blank">Van Zee & FRANKIEONTHEGUITAR: Como Seria? / Amor Sóbrio</a></td>
-</tr>
-<tr>
-    <td>Jan 09, 2025</td>
-    <td><a href="https://www.youtube.com/watch?v=aiChY3jsG6s" target="_blank">Van Zee & FRANKIEONTHEGUITAR: Alta Costura - e a capa?</a></td>
-</tr>
-<tr>
-  <td>Dec 11, 2024</td>
-  <td><a href="https://www.youtube.com/watch?v=ltvpS2cf9h8" target="_blank">Van Zee & FRANKIEONTHEGUITAR: Quem És Tu?</a></td>
-</tr>
-<tr>
-  <td>Dec 05, 2024</td>
-  <td><a href="https://www.youtube.com/watch?v=RUXW835MGdk" target="_blank">YURI NR5: CRXSHOUT X ESTÁBULO</a></td>
-</tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-      </div>
+<!-- Changelog - Desktop window -->
+<div class="window desktop-window open" id="changelog-win" onmousedown="bringToTop('changelog-win')">
+  <div class="title-bar inactive" id="changelog-win-title">
+    <div class="title-drag" id="changelog-win-drag" style="height: 0px;"></div>
+    <div class="title-bar-text">Drops</div>        
+    <div class="title-bar-controls">
+      <button aria-label="Minimize" onclick="minTab('changelog-win')"></button>
+      <button aria-label="Maximize" disabled=""></button>
+      <button aria-label="Close" onclick="closeTab('changelog-win')"></button>
+    </div>
+  </div>      
+  
+  <div class="window-body">
+    <!-- Replaced table with iframe -->
+    <div class="sunken-panel" id="changelog-body">
+      <iframe 
+        src="dropss.html" 
+        title="Changelog"
+        frameborder="0"
+        onload="iframeclick('changelog-body')"
+        style="width: 100%; height: 100%;">
+      </iframe>
+    </div>
+  </div>
+</div>
       
       <!-- Blog - Desktop window -->
       <div class="window desktop-window" id="blog-win" onmousedown="bringToTop('blog-win')">
