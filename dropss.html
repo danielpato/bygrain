@@ -2,49 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Vertical GIF Stack</title>
+  <title>Scrollable Videos</title>
   <style>
     body {
       margin: 0;
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
       background: #222;
     }
 
     .container {
       width: 500px;
-      height: 300px;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
     }
 
-    .container a {
-      flex: 1;
+    .video-box {
+      position: relative;
+      width: 100%;
+      height: 200px; /* controls each video's height */
     }
 
-    .container img {
+    .video-box video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    .video-box a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <a href="https://example.com/1" target="_blank">
-      <img src="https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif" alt="GIF 1">
-    </a>
-    <a href="https://example.com/2" target="_blank">
-      <img src="https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif" alt="GIF 2">
-    </a>
-    <a href="https://example.com/3" target="_blank">
-      <img src="https://media.giphy.com/media/l0HlQ7LRalQqdWfao/giphy.gif" alt="GIF 3">
-    </a>
+
+    <div class="video-box">
+      <video src="https://scontent-iad3-2.cdninstagram.com/o1/v/t16/f2/m84/AQO_LmDCsENZR3PexUR1urPzMV4DKXn7f5A4-_WczfuUxz4fIdJW1ce0x0Buy10y6z1WlZkNL2nUTMiso8xIHtzOJ5i0WIOBa-tV0Lk.mp4" autoplay muted loop playsinline></video>
+      <a href="https://example.com/1" target="_blank"></a>
+    </div>
+
+    <div class="video-box">
+      <video src="https://scontent-iad3-2.cdninstagram.com/o1/v/t16/f2/m84/AQO_LmDCsENZR3PexUR1urPzMV4DKXn7f5A4-_WczfuUxz4fIdJW1ce0x0Buy10y6z1WlZkNL2nUTMiso8xIHtzOJ5i0WIOBa-tV0Lk.mp4" autoplay muted loop playsinline></video>
+      <a href="https://example.com/2" target="_blank"></a>
+    </div>
+
+    <div class="video-box">
+      <video src="https://scontent-iad3-2.cdninstagram.com/o1/v/t16/f2/m84/AQO_LmDCsENZR3PexUR1urPzMV4DKXn7f5A4-_WczfuUxz4fIdJW1ce0x0Buy10y6z1WlZkNL2nUTMiso8xIHtzOJ5i0WIOBa-tV0Lk.mp4" autoplay muted loop playsinline></video>
+      <a href="https://example.com/3" target="_blank"></a>
+    </div>
+
   </div>
 
 </body>
