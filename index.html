@@ -1307,6 +1307,7 @@ border: 2px groove transparent;
 #changelog-body {
   height: 300px; 
   width: 500px;
+  overflow: hidden; /* only dropss iframe scrolls; no outer scrollbar */
 }
 
 /* Positions the draggable box "blog-win" */
@@ -2534,8 +2535,8 @@ function bringToTop(topId) {
 // Allows clicking on (local) embedded content to bring window to top
 function iframeclick(id) {
   document.getElementById(id).contentWindow.document.body.onclick = function() {
-    bringToTop(id)
-  }
+    bringToTop(id);
+  };
 }
 
 // Clock Code
