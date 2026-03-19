@@ -2553,6 +2553,12 @@ function iframeclick(id) {
 
 }());
 
+// On load: bring this window to the front (change id to welcome-win, chat-win, changelog-win, etc.)
+window.addEventListener("DOMContentLoaded", () => {
+  bringToTop("changelog-win");
+});
+
+	
 window.addEventListener("DOMContentLoaded", () => {
   // Only handle one particular tablist; if you have multiple tab
   // lists (might even be nested), you have to apply this code for each one
