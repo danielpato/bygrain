@@ -4,11 +4,61 @@
   <meta charset="UTF-8">
   <title>Scrollable Videos</title>
   <style>
+    /* Theme variables for scrollbar (matches index.html) */
+    :root {
+      --button-face: #dfdfdf;
+      --button-highlight: #ffffff;
+      --button-shadow: #808080;
+      --window-frame: #0a0a0a;
+      --border-raised-outer: inset -1px -1px var(--window-frame), inset 1px 1px var(--button-highlight);
+      --border-raised-inner: inset -2px -2px var(--button-shadow), inset 2px 2px var(--button-face);
+    }
+
     body {
       margin: 0;
       display: flex;
       justify-content: center;
       background: #222;
+    }
+
+    /* Stylized scrollbar (same as index – Win98 theme) */
+    ::-webkit-scrollbar {
+      width: 16px;
+    }
+    ::-webkit-scrollbar:horizontal {
+      height: 17px;
+    }
+    ::-webkit-scrollbar-corner {
+      background: var(--button-face);
+    }
+    ::-webkit-scrollbar-track {
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMiIgaGVpZ2h0PSIyIiB2aWV3Qm94PSIwIDAgMiAyIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTEgMEgwVjFIMVYySDJWMUgxVjBaIiBmaWxsPSIjQzBDMEMwIi8+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMiAwSDFWMUgwVjJIMVYxSDJWMFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=");
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--button-face);
+      box-shadow: var(--border-raised-outer), var(--border-raised-inner);
+    }
+    ::-webkit-scrollbar-button:horizontal:start:decrement,
+    ::-webkit-scrollbar-button:horizontal:end:increment,
+    ::-webkit-scrollbar-button:vertical:start:decrement,
+    ::-webkit-scrollbar-button:vertical:end:increment {
+      display: block;
+    }
+    ::-webkit-scrollbar-button:vertical:start {
+      height: 17px;
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAxNiAxNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNSAwSDBWMVYxNkgxVjFIMTVWMFoiIGZpbGw9IiNERkRGREYiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yIDFIMVYxNUgyVjJIMTRWMUgyWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNiAxN0gxNUgwVjE2SDE1VjBIMTZWMTdaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE1IDFIMTRWMTVIMVYxNkgxNEgxNVYxWiIgZmlsbD0iIzgwODA4MCIvPgo8cmVjdCB4PSIyIiB5PSIyIiB3aWR0aD0iMTIiIGhlaWdodD0iMTMiIGZpbGw9IiNDMEMwQzAiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik04IDZIN1Y3SDZWOEg1VjlINFYxMEgxMVY5SDEwVjhIOVY3SDhWNloiIGZpbGw9ImJsYWNrIi8+Cjwvc3ZnPgo=");
+    }
+    ::-webkit-scrollbar-button:vertical:end {
+      height: 17px;
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAxNiAxNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNSAwSDBWMVYxNkgxVjFIMTVWMFoiIGZpbGw9IiNERkRGREYiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yIDFIMVYxNUgyVjJIMTRWMUgyWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNiAxN0gxNUgwVjE2SDE1VjBIMTZWMTdaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE1IDFIMTRWMTVIMVYxNkgxNEgxNVYxWiIgZmlsbD0iIzgwODA4MCIvPgo8cmVjdCB4PSIyIiB5PSIyIiB3aWR0aD0iMTIiIGhlaWdodD0iMTMiIGZpbGw9IiNDMEMwQzAiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMSA2SDRWN0g1VjhINlY5SDdWMTBIOFY5SDlWOEgxMFY3SDExVjZaIiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K");
+    }
+    ::-webkit-scrollbar-button:horizontal:start {
+      width: 16px;
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAxNiAxNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNSAwSDBWMVYxNkgxVjFIMTVWMFoiIGZpbGw9IiNERkRGREYiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yIDFIMVYxNUgyVjJIMTRWMUgyWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNiAxN0gxNUgwVjE2SDE1VjBIMTZWMTdaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE1IDFIMTRWMTVIMVYxNkgxNEgxNVYxWiIgZmlsbD0iIzgwODA4MCIvPgo8cmVjdCB4PSIyIiB5PSIyIiB3aWR0aD0iMTIiIGhlaWdodD0iMTMiIGZpbGw9IiNDMEMwQzAiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik05IDRIOFY1SDdWNkg2VjdINVY4SDZWOUg3VjEwSDhWMTFIOVY0WiIgZmlsbD0iYmxhY2siLz4KPC9zdmc+Cg==");
+    }
+    ::-webkit-scrollbar-button:horizontal:end {
+      width: 16px;
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAxNiAxNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNSAwSDBWMVYxNkgxVjFIMTVWMFoiIGZpbGw9IiNERkRGREYiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yIDFIMVYxNUgyVjJIMTRWMUgyWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNiAxN0gxNUgwVjE2SDE1VjBIMTZWMTdaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE1IDFIMTRWMTVIMVYxNkgxNEgxNVYxWiIgZmlsbD0iIzgwODA4MCIvPgo8cmVjdCB4PSIyIiB5PSIyIiB3aWR0aD0iMTIiIGhlaWdodD0iMTMiIGZpbGw9IiNDMEMwQzAiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03IDRINlYxMUg3VjEwSDhWOUg5VjhIMTBWN0g5VjZIOFY1SDdWNFoiIGZpbGw9ImJsYWNrIi8+Cjwvc3ZnPgo=");
     }
 
     .container {
