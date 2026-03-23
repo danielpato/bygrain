@@ -23,8 +23,8 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            /* Padding at the top relative to screen width */
-            padding-top: 10vw; 
+            /* Caps the top padding at 80px max */
+            padding-top: clamp(40px, 10vw, 80px); 
         }
 
         .stretched-text {
@@ -37,41 +37,37 @@
             white-space: nowrap;
         }
 
-        /* Using vw for margins makes them scale based on the NARROWNESS of the screen */
+        /* CLAMP EXPLAINED:
+           clamp(MIN_PIXELS, PREFERRED_VW, MAX_PIXELS)
+        */
+
         .header-text {
-            font-size: 4vw;
-            margin-bottom: 6vw; 
+            font-size: clamp(20px, 4vw, 40px);
+            margin-bottom: clamp(30px, 6vw, 60px); 
         }
 
         .date-text {
-            font-size: 2vw;
-            margin-bottom: 10vw;
+            font-size: clamp(12px, 2vw, 20px);
+            margin-bottom: clamp(40px, 10vw, 80px);
         }
 
         #countdown {
-            font-size: 10vw;
-            margin-bottom: 12vw;
+            /* On mobile it's 10% width, but never gets bigger than 140px */
+            font-size: clamp(35px, 10vw, 140px);
+            margin-bottom: clamp(50px, 12vw, 110px);
         }
 
         .footer-text {
-            font-size: 3vw;
-            margin-bottom: 8vw;
+            font-size: clamp(16px, 3vw, 30px);
+            margin-bottom: clamp(40px, 8vw, 70px);
         }
 
         .promo-image {
-            width: 70vw; /* Image size scales perfectly with text */
-            max-width: 600px;
+            /* Image grows with screen but stops at 600px wide */
+            width: clamp(280px, 70vw, 600px); 
             height: auto;
-            margin-bottom: 10vw;
-        }
-
-        /* Desktop Cap: Prevents things from getting comically large on ultra-wide monitors */
-        @media (min-width: 1200px) {
-            .header-text { font-size: 40px; margin-bottom: 50px; }
-            .date-text { font-size: 20px; margin-bottom: 80px; }
-            #countdown { font-size: 110px; margin-bottom: 100px; }
-            .footer-text { font-size: 28px; margin-bottom: 70px; }
-            .container { padding-top: 60px; }
+            display: block;
+            margin-bottom: 100px;
         }
     </style>
 </head>
@@ -85,7 +81,7 @@
         
         <div class="stretched-text footer-text">SIPPINPURPP x YURI NR5</div>
 
-        <img src="/media/dancatshirt.png" alt="DANÇA T-Shirt" class="promo-image">
+        <img src="/images/dancatshirt.png" alt="DANÇA T-Shirt" class="promo-image">
     </div>
 
     <script>
