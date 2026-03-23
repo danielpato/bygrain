@@ -5,26 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DANÇA PA TE DAR BOLO</title>
     <style>
-        /* Black background and full-screen centering */
+        /* Black background and top-aligned layout */
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
+            min-height: 100%;
             background-color: #000000;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* Center horizontally */
+            align-items: flex-start; /* Align to the top */
             color: #ffffff;
             font-family: Arial, sans-serif;
-            overflow: hidden;
+            /* Allow scrolling if the image is tall */
+            overflow-y: auto; 
         }
 
-        /* Container to stack the elements vertically */
+        /* Container to stack the elements vertically with top padding */
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
+            padding-top: 10vh; /* Space from the very top of the browser */
+            width: 100%;
         }
 
         /* Styling for all text elements */
@@ -37,28 +40,35 @@
             text-transform: uppercase;
         }
 
-        /* Specific sizing for the top text */
+        /* Top text */
         .header-text {
             font-size: 2.5vw;
-            margin-bottom: 8vh; /* Creates space for the stretch */
-            color: #ffffff;
+            margin-bottom: 8vh; 
         }
 
-        /* Specific sizing for the countdown */
+        /* Countdown */
         #countdown {
             font-size: 10vw;
             margin-bottom: 8vh;
             margin-top: 8vh;
         }
 
-        /* Specific sizing for the bottom text */
+        /* Footer text */
         .footer-text {
             font-size: 2vw;
             margin-top: 8vh;
-            color: #ffffff;
+            margin-bottom: 10vh; /* Space before the image */
         }
 
-        /* Desktop caps to prevent it getting too massive */
+        /* The Image */
+        .promo-image {
+            max-width: 80%; /* Limits width so it doesn't hit edges */
+            height: auto;
+            display: block;
+            margin: 0 auto 50px auto; /* Centered with bottom margin */
+        }
+
+        /* Desktop caps for font sizes */
         @media (min-width: 1200px) {
             .header-text { font-size: 30px; }
             .date-text { font-size: 15px; }
@@ -71,15 +81,16 @@
 
     <div class="container">
         <div class="stretched-text header-text">DANÇA PA TE DAR BOLO</div>
-        <div class="stretched-text date-text">março 27</div>
+        <div class="stretched-text date-text">Março 27</div>
         
         <div id="countdown" class="stretched-text">00D 00H 00M 00S</div>
         
         <div class="stretched-text footer-text">SIPPINPURPP x YURI NR5</div>
+
+        <img src="/media/dancatshirt.png" alt="DANÇA T-Shirt" class="promo-image">
     </div>
 
     <script>
-        // Target Date: March 27, 2026
         const countDownDate = new Date("March 27, 2026 00:00:00").getTime();
 
         const x = setInterval(function() {
@@ -91,7 +102,6 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Padding with leading zeros for a cleaner look
             const d = days.toString().padStart(2, '0');
             const h = hours.toString().padStart(2, '0');
             const m = minutes.toString().padStart(2, '0');
