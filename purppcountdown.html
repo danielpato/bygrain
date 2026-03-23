@@ -23,7 +23,7 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            padding-top: 30px; 
+            padding-top: 20px; 
         }
 
         .stretched-text {
@@ -36,6 +36,13 @@
             white-space: nowrap;
         }
 
+        /* Top Logo */
+        .top-logo {
+            width: clamp(150px, 30vw, 250px);
+            height: auto;
+            margin-bottom: 40px;
+        }
+
         .header-text {
             font-size: clamp(18px, 4vw, 28px);
             margin-bottom: clamp(20px, 3vw, 30px); 
@@ -43,7 +50,7 @@
 
         .date-text {
             font-size: clamp(10px, 2vw, 14px);
-            /* Increased margin to prevent overlap with the tall countdown */
+            /* Margin increased to prevent overlap from the tall countdown */
             margin-bottom: clamp(50px, 8vw, 70px); 
         }
 
@@ -52,31 +59,33 @@
             margin-bottom: clamp(40px, 6vw, 55px);
         }
 
-        .footer-text {
-            /* Made this 50% smaller as requested */
-            font-size: clamp(8px, 1.5vw, 12px); 
-            margin-bottom: clamp(30px, 4vw, 40px);
-        }
-
         .promo-image {
             width: clamp(250px, 70vw, 450px); 
             height: auto;
             display: block;
-            margin-bottom: 60px; 
+            margin-bottom: 50px; 
+        }
+
+        .footer-text {
+            /* 50% smaller than headers */
+            font-size: clamp(8px, 1.5vw, 12px); 
+            margin-bottom: 60px; /* Final padding at bottom of page */
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <img src="/images/purppworld.png" alt="Purpp World" class="top-logo">
+
         <div class="stretched-text header-text">DANÇA PA TE DAR BOLO</div>
         <div class="stretched-text date-text">Março 27</div>
         
         <div id="countdown" class="stretched-text">00D 00H 00M 00S</div>
         
-        <div class="stretched-text footer-text">ANDA LÁ</div>
-
         <img src="/images/dancatshirt.png" alt="DANÇA T-Shirt" class="promo-image">
+
+        <div class="stretched-text footer-text">ANDA LÁ</div>
     </div>
 
     <script>
