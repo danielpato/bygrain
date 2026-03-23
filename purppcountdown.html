@@ -23,7 +23,6 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            /* Reduced top padding */
             padding-top: 30px; 
         }
 
@@ -37,8 +36,6 @@
             white-space: nowrap;
         }
 
-        /* All margins reduced by ~50% from the previous version */
-
         .header-text {
             font-size: clamp(18px, 4vw, 28px);
             margin-bottom: clamp(20px, 3vw, 30px); 
@@ -46,7 +43,8 @@
 
         .date-text {
             font-size: clamp(10px, 2vw, 14px);
-            margin-bottom: clamp(30px, 5vw, 40px);
+            /* Increased margin to prevent overlap with the tall countdown */
+            margin-bottom: clamp(50px, 8vw, 70px); 
         }
 
         #countdown {
@@ -55,7 +53,8 @@
         }
 
         .footer-text {
-            font-size: clamp(14px, 3vw, 22px);
+            /* Made this 50% smaller as requested */
+            font-size: clamp(8px, 1.5vw, 12px); 
             margin-bottom: clamp(30px, 4vw, 40px);
         }
 
@@ -63,7 +62,6 @@
             width: clamp(250px, 70vw, 450px); 
             height: auto;
             display: block;
-            /* Space at the very bottom of the page */
             margin-bottom: 60px; 
         }
     </style>
@@ -76,7 +74,7 @@
         
         <div id="countdown" class="stretched-text">00D 00H 00M 00S</div>
         
-        <div class="stretched-text footer-text">SIPPINPURPP x YURI NR5</div>
+        <div class="stretched-text footer-text">ANDA LÁ</div>
 
         <img src="/images/dancatshirt.png" alt="DANÇA T-Shirt" class="promo-image">
     </div>
