@@ -23,8 +23,8 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            /* Caps the top padding at 80px max */
-            padding-top: clamp(40px, 10vw, 80px); 
+            /* Fixed top padding for consistency */
+            padding-top: 60px; 
         }
 
         .stretched-text {
@@ -37,34 +37,33 @@
             white-space: nowrap;
         }
 
-        /* CLAMP EXPLAINED:
-           clamp(MIN_PIXELS, PREFERRED_VW, MAX_PIXELS)
+        /* Reduced the MAX values (3rd number) 
+           to force it to stay smaller on desktop.
         */
 
         .header-text {
-            font-size: clamp(20px, 4vw, 40px);
-            margin-bottom: clamp(30px, 6vw, 60px); 
+            font-size: clamp(18px, 4vw, 28px);
+            margin-bottom: clamp(40px, 6vw, 60px); 
         }
 
         .date-text {
-            font-size: clamp(12px, 2vw, 20px);
-            margin-bottom: clamp(40px, 10vw, 80px);
+            font-size: clamp(10px, 2vw, 14px);
+            margin-bottom: clamp(60px, 10vw, 80px);
         }
 
         #countdown {
-            /* On mobile it's 10% width, but never gets bigger than 140px */
-            font-size: clamp(35px, 10vw, 140px);
-            margin-bottom: clamp(50px, 12vw, 110px);
+            font-size: clamp(32px, 8vw, 90px);
+            margin-bottom: clamp(80px, 12vw, 110px);
         }
 
         .footer-text {
-            font-size: clamp(16px, 3vw, 30px);
-            margin-bottom: clamp(40px, 8vw, 70px);
+            font-size: clamp(14px, 3vw, 22px);
+            margin-bottom: clamp(60px, 8vw, 80px);
         }
 
         .promo-image {
-            /* Image grows with screen but stops at 600px wide */
-            width: clamp(280px, 70vw, 600px); 
+            /* Image is now capped at 450px for a more balanced look */
+            width: clamp(250px, 70vw, 450px); 
             height: auto;
             display: block;
             margin-bottom: 100px;
