@@ -23,8 +23,8 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            /* Fixed top padding for consistency */
-            padding-top: 60px; 
+            /* Reduced top padding */
+            padding-top: 30px; 
         }
 
         .stretched-text {
@@ -37,36 +37,34 @@
             white-space: nowrap;
         }
 
-        /* Reduced the MAX values (3rd number) 
-           to force it to stay smaller on desktop.
-        */
+        /* All margins reduced by ~50% from the previous version */
 
         .header-text {
             font-size: clamp(18px, 4vw, 28px);
-            margin-bottom: clamp(40px, 6vw, 60px); 
+            margin-bottom: clamp(20px, 3vw, 30px); 
         }
 
         .date-text {
             font-size: clamp(10px, 2vw, 14px);
-            margin-bottom: clamp(60px, 10vw, 80px);
+            margin-bottom: clamp(30px, 5vw, 40px);
         }
 
         #countdown {
             font-size: clamp(32px, 8vw, 90px);
-            margin-bottom: clamp(80px, 12vw, 110px);
+            margin-bottom: clamp(40px, 6vw, 55px);
         }
 
         .footer-text {
             font-size: clamp(14px, 3vw, 22px);
-            margin-bottom: clamp(60px, 8vw, 80px);
+            margin-bottom: clamp(30px, 4vw, 40px);
         }
 
         .promo-image {
-            /* Image is now capped at 450px for a more balanced look */
             width: clamp(250px, 70vw, 450px); 
             height: auto;
             display: block;
-            margin-bottom: 100px;
+            /* Space at the very bottom of the page */
+            margin-bottom: 60px; 
         }
     </style>
 </head>
@@ -88,13 +86,17 @@
         setInterval(function() {
             const now = new Date().getTime();
             const distance = countDownDate - now;
+            
             const days = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
             const seconds = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
 
             document.getElementById("countdown").innerHTML = `${days}D ${hours}H ${minutes}M ${seconds}S`;
-            if (distance < 0) document.getElementById("countdown").innerHTML = "OUT NOW";
+            
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "OUT NOW";
+            }
         }, 1000);
     </script>
 
