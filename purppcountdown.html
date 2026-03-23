@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown</title>
+    <title>DANÇA PA TE DAR BOLO</title>
     <style>
+        /* Black background and full-screen centering */
         body, html {
             margin: 0;
             padding: 0;
@@ -14,30 +15,69 @@
             justify-content: center;
             align-items: center;
             color: #ffffff;
-            font-family: 'Arial Black', sans-serif; /* Thicker font works better for stretching */
+            font-family: Arial, sans-serif;
             overflow: hidden;
         }
 
-        #countdown {
+        /* Container to stack the elements vertically */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            font-size: 8vw; /* Responsive size based on screen width */
+        }
+
+        /* Styling for all text elements */
+        .stretched-text {
             font-weight: 900;
-            letter-spacing: -2px;
-            
-            /* The Magic: ScaleY(2) makes it twice as tall */
-            transform: scaleY(2); 
             display: inline-block;
-            
-            /* Adjusting line-height prevents the stretched text from overlapping other elements */
+            transform: scaleY(2.5); /* Vertical stretch */
             line-height: 1;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Specific sizing for the top text */
+        .header-text {
+            font-size: 2.5vw;
+            margin-bottom: 8vh; /* Creates space for the stretch */
+            color: #ffffff;
+        }
+
+        /* Specific sizing for the countdown */
+        #countdown {
+            font-size: 10vw;
+            margin-bottom: 8vh;
+            margin-top: 8vh;
+        }
+
+        /* Specific sizing for the bottom text */
+        .footer-text {
+            font-size: 2vw;
+            margin-top: 8vh;
+            color: #ffffff;
+        }
+
+        /* Desktop caps to prevent it getting too massive */
+        @media (min-width: 1200px) {
+            .header-text { font-size: 30px; }
+            #countdown { font-size: 130px; }
+            .footer-text { font-size: 25px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="countdown">00d 00h 00m 00s</div>
+    <div class="container">
+        <div class="stretched-text header-text">DANÇA PA TE DAR BOLO</div>
+        
+        <div id="countdown" class="stretched-text">00D 00H 00M 00S</div>
+        
+        <div class="stretched-text footer-text">SIPPINPURPP x YURI NR5</div>
+    </div>
 
     <script>
+        // Target Date: March 27, 2026
         const countDownDate = new Date("March 27, 2026 00:00:00").getTime();
 
         const x = setInterval(function() {
@@ -49,12 +89,18 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+            // Padding with leading zeros for a cleaner look
+            const d = days.toString().padStart(2, '0');
+            const h = hours.toString().padStart(2, '0');
+            const m = minutes.toString().padStart(2, '0');
+            const s = seconds.toString().padStart(2, '0');
+
             document.getElementById("countdown").innerHTML = 
-                days + "D " + hours + "H " + minutes + "M " + seconds + "S";
+                d + "D " + h + "H " + m + "M " + s + "S";
 
             if (distance < 0) {
                 clearInterval(x);
-                document.getElementById("countdown").innerHTML = "NOW";
+                document.getElementById("countdown").innerHTML = "OUT NOW";
             }
         }, 1000);
     </script>
