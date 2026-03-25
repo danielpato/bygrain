@@ -2169,7 +2169,61 @@ chattable.commands = {
             </div>
           </div>
         </div>
+      <!-- Draggable pixel hats -->
+<div id="draggable-container">
+  <a href="https://bygrain.com/loadingshop" target="_blank">
+    <img src="/images/hatpixelblack.png" alt="Pixel Hat" id="pixel-hat">
+  </a>
+</div>
 
+<script>
+  const dragItem = document.querySelector("#draggable-container");
+  let active = false;
+  let currentX;
+  let currentY;
+  let initialX;
+  let initialY;
+  let xOffset = 0;
+  let yOffset = 0;
+
+  // Track mouse events
+  document.addEventListener("mousedown", dragStart);
+  document.addEventListener("mouseup", dragEnd);
+  document.addEventListener("mousemove", drag);
+
+  function dragStart(e) {
+    if (e.target === document.querySelector("#pixel-hat")) {
+      initialX = e.clientX - xOffset;
+      initialY = e.clientY - yOffset;
+      active = true;
+    }
+  }
+
+  function dragEnd() {
+    initialX = currentX;
+    initialY = currentY;
+    active = false;
+  }
+
+  function drag(e) {
+    if (active) {
+      e.preventDefault();
+      currentX = e.clientX - initialX;
+      currentY = e.clientY - initialY;
+      xOffset = currentX;
+      yOffset = currentY;
+
+      setTranslate(currentX, currentY, dragItem);
+    }
+  }
+
+  function setTranslate(xPos, yPos, el) {
+    el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+  }
+</script>
+
+
+		
       <!-- Chat - Desktop window -->
       <div class="window desktop-window open" id="chat-win" onmousedown="bringToTop('chat-win')">
         <div class="title-bar" id="chat-win-title">
