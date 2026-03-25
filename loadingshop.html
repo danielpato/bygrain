@@ -5,31 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            /* Sets the background color */
             background-color: #001ced;
-            /* Removes default browser margins */
             margin: 0;
             padding: 0;
         }
 
-        .top-image {
-            /* Allows the image to scale down on small screens */
-            width: 100%;
-            /* Prevents the image from growing larger than 800px */
-            max-width: 800px;
-            /* Ensures the image maintains its aspect ratio */
-            height: auto;
-            /* Removes gaps and allows for centering with margin */
+        /* The link wrapper */
+        .image-link {
             display: block;
-            /* Centers the image horizontally once it hits the max-width */
+            text-decoration: none; /* Removes underline if any text slips in */
+        }
+
+        .top-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            display: block;
             margin: 0 auto;
+            border: none; /* Ensures no border appears on some older browsers */
         }
     </style>
     <title>loading...</title>
 </head>
 <body>
 
-    <img src="/images/loading.gif" alt="Loading" class="top-image">
+    <a href="https://bygrain.com" class="image-link">
+        <img src="/images/loading.gif" alt="Loading" class="top-image">
+    </a>
 
 </body>
 </html>
