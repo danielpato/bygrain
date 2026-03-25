@@ -82,6 +82,34 @@
   --default-button-border-sunken-inner: inset -2px -2px var(--button-highlight), inset 3px 3px var(--button-shadow), inset -3px -3px var(--button-face);
 
 
+	/*pixel hat style*/
+  #draggable-container {
+    position: absolute;
+    /* Initial spawning position */
+    top: 700px; 
+    left: 800px;
+    z-index: 9999;
+    cursor: move;
+    user-select: none;
+    -webkit-user-select: none;
+    
+    /* Ensure the container only takes up as much space as the image */
+    display: inline-block;
+    line-height: 0;
+  }
+
+  #draggable-container img {
+    /* This forces the image to be 40% of its 
+       ORIGINAL file width regardless of screen size 
+    */
+    width: 40%; 
+    height: auto;
+    display: block;
+    pointer-events: auto;
+    /* Disable browser ghost-drag */
+    -webkit-user-drag: none;
+  }
+
   /* Window borders flip button-face and button-highlight */
   --border-window-outer: inset -1px -1px var(--window-frame),
     inset 1px 1px var(--button-face);
@@ -2170,55 +2198,53 @@ chattable.commands = {
           </div>
         </div>
       <!-- Draggable pixel hats -->
+
 <div id="draggable-container">
   <a href="https://bygrain.com/loadingshop" target="_blank">
-    <img src="/images/hatpixelblack.png" alt="Pixel Hat" id="pixel-hat" width="40%">
+    <img src="/images/hatpixelblack.png" alt="Pixel Hat" id="pixel-hat">
   </a>
 </div>
 
 <script>
   const dragItem = document.querySelector("#draggable-container");
+  const img = document.querySelector("#pixel-hat");
+  
   let active = false;
-  let currentX;
-  let currentY;
+  let currentX = 0;
+  let currentY = 0;
   let initialX;
   let initialY;
-  let xOffset = 0;
-  let yOffset = 0;
 
-  // Track mouse events
-  document.addEventListener("mousedown", dragStart);
-  document.addEventListener("mouseup", dragEnd);
-  document.addEventListener("mousemove", drag);
+  // 1. KILL BROWSER DEFAULT DRAGGING
+  img.addEventListener('dragstart', (e) => e.preventDefault());
+
+  // 2. CUSTOM DRAG LOGIC
+  dragItem.addEventListener("mousedown", dragStart);
+  window.addEventListener("mouseup", dragEnd);
+  window.addEventListener("mousemove", drag);
 
   function dragStart(e) {
-    if (e.target === document.querySelector("#pixel-hat")) {
-      initialX = e.clientX - xOffset;
-      initialY = e.clientY - yOffset;
-      active = true;
-    }
+    // Only drag if left-clicking
+    if (e.button !== 0) return;
+    
+    initialX = e.clientX - currentX;
+    initialY = e.clientY - currentY;
+    active = true;
   }
 
   function dragEnd() {
-    initialX = currentX;
-    initialY = currentY;
     active = false;
   }
 
   function drag(e) {
     if (active) {
       e.preventDefault();
+      
       currentX = e.clientX - initialX;
       currentY = e.clientY - initialY;
-      xOffset = currentX;
-      yOffset = currentY;
 
-      setTranslate(currentX, currentY, dragItem);
+      dragItem.style.transform = `translate(${currentX}px, ${currentY}px)`;
     }
-  }
-
-  function setTranslate(xPos, yPos, el) {
-    el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
   }
 </script>
 
