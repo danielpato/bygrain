@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.dino-runner {
+  --bg: #f6f7fb;
+  --text: #23242a;
+  --muted: #646773;
+  --accent: #2f67ff;
+  --dino: #23242a;
+  --obstacle: #1f2430;
+  width: 100%;
+  max-width: 900px;
+  color: var(--text);
+  font-family: 'Press Start 2P', cursive;
+  touch-action: manipulation;
+}
+
+.dino-runner,
+.dino-runner * {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dino-game-shell {
+  width: 100%;
+  display: grid;
+}
+
+.dino-hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text);
+  user-select: none;
+  padding: 10px 14px;
+  pointer-events: none;
+}
+
+.dino-canvas-wrap {
+  position: relative;
+  border: 2px solid #dfe2eb;
+  border-radius: 10px;
+  background: linear-gradient(to bottom, #fbfcff, #f4f6fc 75%);
+  overflow: hidden;
+}
+
+.dino-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 6;
+}
+
+.dino-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background: rgba(250, 252, 255, 0.92);
+  padding: 20px;
+  transition: opacity 180ms ease;
+}
+
+.dino-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dino-card {
+  max-width: 560px;
+}
+
+.dino-title {
+  margin: 0 0 8px;
+  font-size: clamp(18px, 3vw, 28px);
+  letter-spacing: 0.04em;
+}
+
+.dino-subtitle {
+  margin: 0 0 16px;
+  color: var(--muted);
+  line-height: 1.4;
+  font-size: clamp(9px, 1.4vw, 12px);
+  line-height: 1.8;
+}
+
+.dino-start-btn {
+  border: 0;
+  border-radius: 6px;
+  padding: 14px 22px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  color: white;
+  background: var(--accent);
+  cursor: pointer;
+}
+
+.dino-start-btn:active {
+  transform: translateY(1px);
+}
+
+.dino-hint {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 8px;
+}
+
+.dino-mute-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 3;
+  border: 0;
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-size: 24px;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  user-select: none;
+}
+
+.dino-mute-btn:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 700px) {
+  .dino-hud {
+    font-size: 8px;
+  }
+}
