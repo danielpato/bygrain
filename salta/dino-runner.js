@@ -79,11 +79,25 @@
     if (opts.title) { var titleEl = root.querySelector(".dino-title"); if (titleEl && titleEl.tagName !== "IMG") titleEl.textContent = title; }
 
     var canvasWrap = root.querySelector(".dino-canvas-wrap");
+
+    function lockLandscape() {
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock("landscape").catch(function () {});
+      }
+    }
+
+    function unlockOrientation() {
+      if (screen.orientation && screen.orientation.unlock) {
+        screen.orientation.unlock();
+      }
+    }
+
     fullscreenBtn.addEventListener("click", function () {
       var fsEl = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
       if (!fsEl) {
+        var p;
         if (canvasWrap.requestFullscreen) {
-          canvasWrap.requestFullscreen();
+          p = canvasWrap.requestFullscreen();
         } else if (canvasWrap.webkitRequestFullscreen) {
           canvasWrap.webkitRequestFullscreen();
         } else if (canvasWrap.webkitEnterFullscreen) {
@@ -91,7 +105,13 @@
         } else if (canvasWrap.msRequestFullscreen) {
           canvasWrap.msRequestFullscreen();
         }
+        if (p && p.then) {
+          p.then(lockLandscape);
+        } else {
+          lockLandscape();
+        }
       } else {
+        unlockOrientation();
         if (document.exitFullscreen) {
           document.exitFullscreen();
         } else if (document.webkitExitFullscreen) {
@@ -102,13 +122,55 @@
       }
     });
 
+    document.addEventListener("fullscreenchange", function () {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        unlockOrientation();
+      }
+    });
+    document.addEventListener("webkitfullscreenchange", function () {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        unlockOrientation();
+      }
+    });
+
+    var audioCtx = null;
+    var musicGain = null;
+    var sfxGain = null;
+
+    function getAudioCtx() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        musicGain = audioCtx.createGain();
+        musicGain.gain.value = 0.12;
+        musicGain.connect(audioCtx.destination);
+        sfxGain = audioCtx.createGain();
+        sfxGain.gain.value = 1.0;
+        sfxGain.connect(audioCtx.destination);
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
     var music = new Audio("./music.mp3");
     music.loop = true;
-    music.volume = 0.12;
+    var musicSourceCreated = false;
     var isMuted = false;
 
+    function connectMusic() {
+      if (musicSourceCreated) return;
+      var ctx = getAudioCtx();
+      var source = ctx.createMediaElementSource(music);
+      source.connect(musicGain);
+      musicSourceCreated = true;
+    }
+
     function makeSfxGroup(paths) {
-      return { sounds: paths.map(function (p) { return new Audio(p); }), index: 0 };
+      var group = { sounds: [], index: 0, connected: [] };
+      group.sounds = paths.map(function (p) { return new Audio(p); });
+      group.connected = paths.map(function () { return false; });
+      return group;
     }
     var sfx = {
       carro: makeSfxGroup(["./audio/carro.mp3", "./audio/carro2.mp3"]),
@@ -119,15 +181,23 @@
 
     function playSfx(group) {
       if (isMuted) return;
-      var sound = group.sounds[group.index];
-      group.index = (group.index + 1) % group.sounds.length;
+      var idx = group.index;
+      var sound = group.sounds[idx];
+      group.index = (idx + 1) % group.sounds.length;
+      if (!group.connected[idx]) {
+        var ctx = getAudioCtx();
+        var src = ctx.createMediaElementSource(sound);
+        src.connect(sfxGain);
+        group.connected[idx] = true;
+      }
       sound.currentTime = 0;
       sound.play().catch(function () {});
     }
 
     muteBtn.addEventListener("click", function () {
       isMuted = !isMuted;
-      music.muted = isMuted;
+      if (musicGain) musicGain.gain.value = isMuted ? 0 : 0.12;
+      if (sfxGain) sfxGain.gain.value = isMuted ? 0 : 1.0;
       muteBtn.textContent = isMuted ? "\uD83D\uDD07" : "\uD83D\uDD0A";
     });
 
@@ -336,6 +406,7 @@
       lastTs = 0;
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(loop);
+      connectMusic();
       music.currentTime = 0;
       music.play().catch(function () {});
     }
