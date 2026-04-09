@@ -116,10 +116,7 @@
       return !!(canvasWrap.requestFullscreen || canvasWrap.webkitRequestFullscreen || canvasWrap.msRequestFullscreen);
     }
 
-    fullscreenBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-
+    function toggleFullscreen() {
       if (isNativeFullscreen()) {
         unlockOrientation();
         if (document.exitFullscreen) document.exitFullscreen();
@@ -149,6 +146,21 @@
       } else {
         enterPseudoFullscreen();
       }
+    }
+
+    var fsBtnTouched = false;
+    fullscreenBtn.addEventListener("touchend", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      fsBtnTouched = true;
+      toggleFullscreen();
+    }, { passive: false });
+
+    fullscreenBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (fsBtnTouched) { fsBtnTouched = false; return; }
+      toggleFullscreen();
     });
 
     document.addEventListener("fullscreenchange", function () {
@@ -931,6 +943,8 @@
         }
         event.preventDefault();
       }
+      var t = event.target;
+      if (t === fullscreenBtn || t === muteBtn || t === startBtn) return;
       jump();
     }
 
