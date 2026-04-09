@@ -53,12 +53,13 @@
       '      <div class="dino-overlay" data-role="overlay">',
       '        <div class="dino-card">',
       '          <img src="./sprites/splogo.png" class="dino-title" style="max-width:95%;max-height:35%;height:auto;object-fit:contain;display:block;margin:0 auto">',
-      '          <p class="dino-subtitle">Faz o teu caminho evitando os Pressinhas.<br>Os routers dar-te-\u00e3o fibra para continuar! Consegues chegar ao fim?</p>',
+      '          <p class="dino-subtitle">Faz o teu caminho evitando os Pressinhas.<br>Os routers dar-te-\u00e3o fibra para continuar!<br>Consegues chegar ao fim?</p>',
       '          <button class="dino-start-btn" type="button" data-role="startBtn">Come\u00e7ar</button>',
       '          <div class="dino-hint">Controlos: Espa\u00e7o / Seta para Cima / Toca / Clica</div>',
       "        </div>",
       "      </div>",
       '      <button class="dino-mute-btn" type="button" data-role="muteBtn">\uD83D\uDD0A</button>',
+      '      <button class="dino-fullscreen-btn" type="button" data-role="fullscreenBtn">\u26F6</button>',
       "    </div>",
       "  </div>",
       "</section>"
@@ -74,14 +75,102 @@
     const vidasText = root.querySelector('[data-role="vidasText"]');
     const bestText = root.querySelector('[data-role="bestText"]');
     const muteBtn = root.querySelector('[data-role="muteBtn"]');
+    const fullscreenBtn = root.querySelector('[data-role="fullscreenBtn"]');
     if (opts.title) { var titleEl = root.querySelector(".dino-title"); if (titleEl && titleEl.tagName !== "IMG") titleEl.textContent = title; }
+
+    var canvasWrap = root.querySelector(".dino-canvas-wrap");
+
+    function lockLandscape() {
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock("landscape").catch(function () {});
+      }
+    }
+
+    function unlockOrientation() {
+      if (screen.orientation && screen.orientation.unlock) {
+        screen.orientation.unlock();
+      }
+    }
+
+    fullscreenBtn.addEventListener("click", function () {
+      var fsEl = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+      if (!fsEl) {
+        var p;
+        if (canvasWrap.requestFullscreen) {
+          p = canvasWrap.requestFullscreen();
+        } else if (canvasWrap.webkitRequestFullscreen) {
+          canvasWrap.webkitRequestFullscreen();
+        } else if (canvasWrap.webkitEnterFullscreen) {
+          canvasWrap.webkitEnterFullscreen();
+        } else if (canvasWrap.msRequestFullscreen) {
+          canvasWrap.msRequestFullscreen();
+        }
+        if (p && p.then) {
+          p.then(lockLandscape);
+        } else {
+          lockLandscape();
+        }
+      } else {
+        unlockOrientation();
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+    });
+
+    document.addEventListener("fullscreenchange", function () {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        unlockOrientation();
+      }
+    });
+    document.addEventListener("webkitfullscreenchange", function () {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        unlockOrientation();
+      }
+    });
+
+    var audioCtx = null;
+    var musicGain = null;
+    var sfxGain = null;
+
+    function getAudioCtx() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        musicGain = audioCtx.createGain();
+        musicGain.gain.value = 1.0;
+        musicGain.connect(audioCtx.destination);
+        sfxGain = audioCtx.createGain();
+        sfxGain.gain.value = 1.0;
+        sfxGain.connect(audioCtx.destination);
+      }
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
 
     var music = new Audio("./music.mp3");
     music.loop = true;
+    var musicSourceCreated = false;
     var isMuted = false;
 
+    function connectMusic() {
+      if (musicSourceCreated) return;
+      var ctx = getAudioCtx();
+      var source = ctx.createMediaElementSource(music);
+      source.connect(musicGain);
+      musicSourceCreated = true;
+    }
+
     function makeSfxGroup(paths) {
-      return { sounds: paths.map(function (p) { return new Audio(p); }), index: 0 };
+      var group = { sounds: [], index: 0, connected: [] };
+      group.sounds = paths.map(function (p) { return new Audio(p); });
+      group.connected = paths.map(function () { return false; });
+      return group;
     }
     var sfx = {
       carro: makeSfxGroup(["./audio/carro.mp3", "./audio/carro2.mp3"]),
@@ -92,15 +181,23 @@
 
     function playSfx(group) {
       if (isMuted) return;
-      var sound = group.sounds[group.index];
-      group.index = (group.index + 1) % group.sounds.length;
+      var idx = group.index;
+      var sound = group.sounds[idx];
+      group.index = (idx + 1) % group.sounds.length;
+      if (!group.connected[idx]) {
+        var ctx = getAudioCtx();
+        var src = ctx.createMediaElementSource(sound);
+        src.connect(sfxGain);
+        group.connected[idx] = true;
+      }
       sound.currentTime = 0;
       sound.play().catch(function () {});
     }
 
     muteBtn.addEventListener("click", function () {
       isMuted = !isMuted;
-      music.muted = isMuted;
+      if (musicGain) musicGain.gain.value = isMuted ? 0 : 1.0;
+      if (sfxGain) sfxGain.gain.value = isMuted ? 0 : 1.0;
       muteBtn.textContent = isMuted ? "\uD83D\uDD07" : "\uD83D\uDD0A";
     });
 
@@ -309,6 +406,7 @@
       lastTs = 0;
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(loop);
+      connectMusic();
       music.currentTime = 0;
       music.play().catch(function () {});
     }
