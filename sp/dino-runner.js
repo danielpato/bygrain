@@ -79,6 +79,7 @@
     if (opts.title) { var titleEl = root.querySelector(".dino-title"); if (titleEl && titleEl.tagName !== "IMG") titleEl.textContent = title; }
 
     var canvasWrap = root.querySelector(".dino-canvas-wrap");
+    var isPseudoFullscreen = false;
 
     function lockLandscape() {
       if (screen.orientation && screen.orientation.lock) {
@@ -92,45 +93,69 @@
       }
     }
 
-    fullscreenBtn.addEventListener("click", function () {
-      var fsEl = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
-      if (!fsEl) {
+    function enterPseudoFullscreen() {
+      isPseudoFullscreen = true;
+      canvasWrap.classList.add("dino-pseudo-fullscreen");
+      document.body.style.overflow = "hidden";
+      window.scrollTo(0, 0);
+      lockLandscape();
+    }
+
+    function exitPseudoFullscreen() {
+      isPseudoFullscreen = false;
+      canvasWrap.classList.remove("dino-pseudo-fullscreen");
+      document.body.style.overflow = "";
+      unlockOrientation();
+    }
+
+    function isNativeFullscreen() {
+      return !!(document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement);
+    }
+
+    function canNativeFullscreen() {
+      return !!(canvasWrap.requestFullscreen || canvasWrap.webkitRequestFullscreen || canvasWrap.msRequestFullscreen);
+    }
+
+    fullscreenBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (isNativeFullscreen()) {
+        unlockOrientation();
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        else if (document.msExitFullscreen) document.msExitFullscreen();
+        return;
+      }
+
+      if (isPseudoFullscreen) {
+        exitPseudoFullscreen();
+        return;
+      }
+
+      if (canNativeFullscreen()) {
         var p;
-        if (canvasWrap.requestFullscreen) {
-          p = canvasWrap.requestFullscreen();
-        } else if (canvasWrap.webkitRequestFullscreen) {
-          canvasWrap.webkitRequestFullscreen();
-        } else if (canvasWrap.webkitEnterFullscreen) {
-          canvasWrap.webkitEnterFullscreen();
-        } else if (canvasWrap.msRequestFullscreen) {
-          canvasWrap.msRequestFullscreen();
-        }
+        if (canvasWrap.requestFullscreen) p = canvasWrap.requestFullscreen();
+        else if (canvasWrap.webkitRequestFullscreen) canvasWrap.webkitRequestFullscreen();
+        else if (canvasWrap.msRequestFullscreen) canvasWrap.msRequestFullscreen();
+
         if (p && p.then) {
-          p.then(lockLandscape);
+          p.then(lockLandscape).catch(function () {
+            enterPseudoFullscreen();
+          });
         } else {
           lockLandscape();
         }
       } else {
-        unlockOrientation();
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-          document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) {
-          document.msExitFullscreen();
-        }
+        enterPseudoFullscreen();
       }
     });
 
     document.addEventListener("fullscreenchange", function () {
-      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-        unlockOrientation();
-      }
+      if (!isNativeFullscreen()) unlockOrientation();
     });
     document.addEventListener("webkitfullscreenchange", function () {
-      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-        unlockOrientation();
-      }
+      if (!isNativeFullscreen()) unlockOrientation();
     });
 
     var audioCtx = null;
