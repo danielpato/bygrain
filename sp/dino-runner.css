@@ -49,6 +49,18 @@
   overflow: hidden;
 }
 
+.dino-canvas-wrap.dino-pseudo-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  border: 0;
+  border-radius: 0;
+  background: #000;
+}
+
 .dino-canvas {
   display: block;
   width: 100%;
