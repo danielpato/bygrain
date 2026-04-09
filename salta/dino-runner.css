@@ -136,10 +136,12 @@
 .dino-fullscreen-btn {
   position: absolute;
   bottom: 10px;
-  z-index: 3;
+  z-index: 10;
   border: 0;
   border-radius: 6px;
   padding: 12px 14px;
+  pointer-events: auto;
+  touch-action: manipulation;
   font-size: 24px;
   line-height: 1;
   background: rgba(255, 255, 255, 0.75);
