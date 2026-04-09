@@ -93,17 +93,43 @@
       }
     }
 
+    function isPortrait() {
+      return window.innerHeight > window.innerWidth;
+    }
+
     function enterPseudoFullscreen() {
       isPseudoFullscreen = true;
       canvasWrap.classList.add("dino-pseudo-fullscreen");
       document.body.style.overflow = "hidden";
       window.scrollTo(0, 0);
+
+      if (isPortrait()) {
+        canvasWrap.classList.add("dino-fs-rotated");
+        canvasWrap.classList.remove("dino-fs-landscape");
+        var vw = window.innerWidth;
+        var vh = window.innerHeight;
+        canvasWrap.style.width = vh + "px";
+        canvasWrap.style.height = vw + "px";
+        canvasWrap.style.transform = "rotate(90deg) translateY(-" + vw + "px)";
+        canvasWrap.style.transformOrigin = "top left";
+      } else {
+        canvasWrap.classList.add("dino-fs-landscape");
+        canvasWrap.classList.remove("dino-fs-rotated");
+        canvasWrap.style.width = "";
+        canvasWrap.style.height = "";
+        canvasWrap.style.transform = "";
+        canvasWrap.style.transformOrigin = "";
+      }
       lockLandscape();
     }
 
     function exitPseudoFullscreen() {
       isPseudoFullscreen = false;
-      canvasWrap.classList.remove("dino-pseudo-fullscreen");
+      canvasWrap.classList.remove("dino-pseudo-fullscreen", "dino-fs-rotated", "dino-fs-landscape");
+      canvasWrap.style.width = "";
+      canvasWrap.style.height = "";
+      canvasWrap.style.transform = "";
+      canvasWrap.style.transformOrigin = "";
       document.body.style.overflow = "";
       unlockOrientation();
     }
