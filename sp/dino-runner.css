@@ -120,10 +120,10 @@
   font-size: clamp(5px, 0.9vw, 8px);
 }
 
-.dino-mute-btn {
+.dino-mute-btn,
+.dino-fullscreen-btn {
   position: absolute;
   bottom: 10px;
-  right: 10px;
   z-index: 3;
   border: 0;
   border-radius: 6px;
@@ -135,7 +135,16 @@
   user-select: none;
 }
 
-.dino-mute-btn:active {
+.dino-mute-btn {
+  right: 60px;
+}
+
+.dino-fullscreen-btn {
+  right: 10px;
+}
+
+.dino-mute-btn:active,
+.dino-fullscreen-btn:active {
   transform: translateY(1px);
 }
 
@@ -172,10 +181,18 @@
     font-size: clamp(4px, 1vw, 6px);
   }
 
-  .dino-mute-btn {
+  .dino-mute-btn,
+  .dino-fullscreen-btn {
     padding: 8px 10px;
     font-size: 18px;
     bottom: 6px;
+  }
+
+  .dino-mute-btn {
+    right: 46px;
+  }
+
+  .dino-fullscreen-btn {
     right: 6px;
   }
 }
