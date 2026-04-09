@@ -80,10 +80,25 @@
 
     var canvasWrap = root.querySelector(".dino-canvas-wrap");
     fullscreenBtn.addEventListener("click", function () {
-      if (!document.fullscreenElement) {
-        (canvasWrap.requestFullscreen || canvasWrap.webkitRequestFullscreen || canvasWrap.msRequestFullscreen).call(canvasWrap);
+      var fsEl = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+      if (!fsEl) {
+        if (canvasWrap.requestFullscreen) {
+          canvasWrap.requestFullscreen();
+        } else if (canvasWrap.webkitRequestFullscreen) {
+          canvasWrap.webkitRequestFullscreen();
+        } else if (canvasWrap.webkitEnterFullscreen) {
+          canvasWrap.webkitEnterFullscreen();
+        } else if (canvasWrap.msRequestFullscreen) {
+          canvasWrap.msRequestFullscreen();
+        }
       } else {
-        (document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen).call(document);
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
       }
     });
 
