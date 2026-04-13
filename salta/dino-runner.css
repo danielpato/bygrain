@@ -51,52 +51,24 @@
 
 .dino-canvas-wrap.dino-pseudo-fullscreen {
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 99999;
   border: 0;
   border-radius: 0;
   background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.dino-canvas-wrap.dino-pseudo-fullscreen.dino-fs-landscape {
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-}
-
-.dino-canvas-wrap.dino-pseudo-fullscreen.dino-fs-rotated {
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.dino-canvas-wrap.dino-pseudo-fullscreen.dino-fs-rotated > * {
-  position: absolute;
-}
-
-.dino-canvas-wrap.dino-pseudo-fullscreen.dino-fs-rotated > .dino-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
+.dino-pseudo-fullscreen .dino-canvas {
   width: 100%;
-  height: 100%;
-}
-
-.dino-canvas-wrap.dino-pseudo-fullscreen.dino-fs-rotated > .dino-hud {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-.dino-canvas-wrap.dino-pseudo-fullscreen.dino-fs-rotated > .dino-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  height: auto;
+  aspect-ratio: 16 / 6;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .dino-canvas {
