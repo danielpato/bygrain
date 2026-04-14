@@ -463,6 +463,7 @@
     function startGame() {
       resetRun();
       stopIdleLoop();
+      startBtn.blur();
       idleObstacles = [];
       isPlaying = true;
       startOverlay.classList.add("hidden");
