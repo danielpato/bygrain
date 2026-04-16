@@ -58,6 +58,14 @@
       '          <div class="dino-hint">Controlos: Espa\u00e7o / Seta para Cima / Toca / Clica</div>',
       "        </div>",
       "      </div>",
+      '      <div class="dino-overlay hidden" data-role="winOverlay">',
+      '        <div class="dino-card dino-win-card">',
+      '          <p class="dino-win-title">WOW! 1000?</p>',
+      '          <p class="dino-win-subtitle">Ganda Maluco!!<br>Toma l\u00e1 um pr\u00e9mio ent\u00e3o:</p>',
+      '          <p class="dino-win-prize" data-role="winPrize"></p>',
+      '          <button class="dino-start-btn" type="button" data-role="winRestartBtn">Recome\u00e7ar</button>',
+      '        </div>',
+      '      </div>',
       '      <button class="dino-mute-btn" type="button" data-role="muteBtn">\uD83D\uDD0A</button>',
       '      <button class="dino-fullscreen-btn" type="button" data-role="fullscreenBtn">\u26F6</button>',
       "    </div>",
@@ -74,6 +82,9 @@
     const heartsText = root.querySelector('[data-role="heartsText"]');
     const vidasText = root.querySelector('[data-role="vidasText"]');
     const bestText = root.querySelector('[data-role="bestText"]');
+    const winOverlay = root.querySelector('[data-role="winOverlay"]');
+    const winPrize = root.querySelector('[data-role="winPrize"]');
+    const winRestartBtn = root.querySelector('[data-role="winRestartBtn"]');
     const muteBtn = root.querySelector('[data-role="muteBtn"]');
     const fullscreenBtn = root.querySelector('[data-role="fullscreenBtn"]');
     if (opts.title) { var titleEl = root.querySelector(".dino-title"); if (titleEl && titleEl.tagName !== "IMG") titleEl.textContent = title; }
@@ -467,6 +478,7 @@
       idleObstacles = [];
       isPlaying = true;
       startOverlay.classList.add("hidden");
+      winOverlay.classList.add("hidden");
       lastTs = 0;
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(loop);
@@ -486,6 +498,22 @@
       updateHud();
       startBtn.textContent = "Recome\u00e7ar";
       startOverlay.classList.remove("hidden");
+      idleObstacles = [];
+      idleSpawnTimer = 0;
+      startIdleLoop();
+    }
+
+    function gameWin() {
+      isGameOver = true;
+      isPlaying = false;
+      music.pause();
+      if (score > best) {
+        best = Math.floor(score);
+        localStorage.setItem(bestKey, String(best));
+      }
+      updateHud();
+      winPrize.textContent = "\uD83C\uDFC6";
+      winOverlay.classList.remove("hidden");
       idleObstacles = [];
       idleSpawnTimer = 0;
       startIdleLoop();
@@ -559,6 +587,11 @@
 
       speed += 0.0023 * deltaNorm;
       score += 0.17 * deltaNorm;
+      if (score >= 1000) {
+        score = 1000;
+        gameWin();
+        return;
+      }
       if (backgroundSprite) {
         bgScrollX = (bgScrollX + speed * 0.5 * deltaNorm) % backgroundSprite.naturalWidth;
       }
@@ -971,11 +1004,12 @@
         event.preventDefault();
       }
       var t = event.target;
-      if (t === fullscreenBtn || t === muteBtn || t === startBtn) return;
+      if (t === fullscreenBtn || t === muteBtn || t === startBtn || t === winRestartBtn) return;
       jump();
     }
 
     startBtn.addEventListener("click", startGame);
+    winRestartBtn.addEventListener("click", startGame);
     window.addEventListener("keydown", handleJumpInput, { passive: false });
     canvas.addEventListener("pointerdown", handleJumpInput);
     canvas.addEventListener("touchstart", handleJumpInput, { passive: true });
@@ -997,6 +1031,7 @@
         music.src = "";
         window.removeEventListener("keydown", handleJumpInput);
         startBtn.removeEventListener("click", startGame);
+        winRestartBtn.removeEventListener("click", startGame);
         canvas.removeEventListener("pointerdown", handleJumpInput);
         canvas.removeEventListener("touchstart", handleJumpInput);
         hostEl.innerHTML = "";
