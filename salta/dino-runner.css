@@ -102,12 +102,28 @@
 }
 
 .dino-win-card {
-  gap: 8px;
+  gap: clamp(2px, 0.8vh, 6px);
+  max-height: 100%;
+  overflow-y: auto;
+  padding: clamp(4px, 1.5vh, 12px) 10px;
+}
+
+.dino-win-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 2vw, 16px);
+}
+
+.dino-win-trophy {
+  font-size: clamp(20px, 4vw, 42px);
+  line-height: 1;
+  flex-shrink: 0;
 }
 
 .dino-win-title {
   margin: 0;
-  font-size: clamp(18px, 4vw, 36px);
+  font-size: clamp(14px, 3.5vw, 32px);
   color: #ff6b00;
   text-shadow: 2px 2px 0 #c44900;
   animation: dino-win-bounce 0.6s ease infinite alternate;
@@ -115,19 +131,63 @@
 
 .dino-win-subtitle {
   margin: 0;
-  font-size: clamp(9px, 1.6vw, 16px);
-  line-height: 1.6;
+  font-size: clamp(7px, 1.3vw, 13px);
+  line-height: 1.5;
   color: #23242a;
-}
-
-.dino-win-prize {
-  margin: 0;
-  font-size: clamp(28px, 6vw, 56px);
 }
 
 @keyframes dino-win-bounce {
   from { transform: scale(1); }
   to { transform: scale(1.08); }
+}
+
+.dino-win-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(3px, 0.6vh, 6px);
+  width: 100%;
+  max-width: 260px;
+}
+
+.dino-win-input {
+  width: 100%;
+  border: 2px solid #dfe2eb;
+  border-radius: 6px;
+  padding: clamp(4px, 0.8vh, 8px) clamp(6px, 1.2vw, 12px);
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(6px, 1vw, 10px);
+  color: #23242a;
+  background: #fff;
+  outline: none;
+  text-align: center;
+}
+
+.dino-win-input:focus {
+  border-color: #ffa8d4;
+}
+
+.dino-win-submit {
+  margin-top: 1px;
+}
+
+.dino-win-status {
+  margin: 0;
+  font-size: clamp(5px, 0.9vw, 8px);
+  min-height: 1.2em;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
+.dino-win-restart-link {
+  background: transparent;
+  color: var(--muted);
+  font-size: clamp(5px, 0.9vw, 8px);
+  padding: 2px 6px;
+  opacity: 0.7;
+}
+
+.dino-win-restart-link:hover {
+  opacity: 1;
 }
 
 .dino-card {
