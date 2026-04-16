@@ -4,6 +4,8 @@
       throw new Error("createDinoRunner: host element is required.");
     }
 
+    var GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxvyOfaLv2Su3WV0QVbJsY6IGNX2k9-MTPIVEt4johmJkR_VnXVYnDXgBUV6RsJ8P-J/exec";
+
     var opts = options || {};
     var defaultSprites = {
       playerIdleSpriteSrc: "./sprites/player-idle.png",
@@ -60,10 +62,15 @@
       "      </div>",
       '      <div class="dino-overlay hidden" data-role="winOverlay">',
       '        <div class="dino-card dino-win-card">',
-      '          <p class="dino-win-title">WOW! 1000?</p>',
+      '          <div class="dino-win-title-row"><span class="dino-win-trophy">\uD83C\uDFC6</span><p class="dino-win-title">WOW! 200?</p><span class="dino-win-trophy">\uD83C\uDFC6</span></div>',
       '          <p class="dino-win-subtitle">Ganda Maluco!!<br>Toma l\u00e1 um pr\u00e9mio ent\u00e3o:</p>',
-      '          <p class="dino-win-prize" data-role="winPrize"></p>',
-      '          <button class="dino-start-btn" type="button" data-role="winRestartBtn">Recome\u00e7ar</button>',
+      '          <div class="dino-win-form" data-role="winForm">',
+      '            <input class="dino-win-input" type="text" data-role="winName" placeholder="Nome" maxlength="200" autocomplete="off">',
+      '            <input class="dino-win-input" type="tel" data-role="winPhone" placeholder="Telefone" maxlength="50" autocomplete="off" inputmode="numeric" pattern="[0-9]*">',
+      '            <button class="dino-start-btn dino-win-submit" type="button" data-role="winSubmitBtn">Enviar</button>',
+      '          </div>',
+      '          <p class="dino-win-status" data-role="winStatus"></p>',
+      '          <button class="dino-start-btn dino-win-restart-link" type="button" data-role="winRestartBtn">Jogar outra vez</button>',
       '        </div>',
       '      </div>',
       '      <button class="dino-mute-btn" type="button" data-role="muteBtn">\uD83D\uDD0A</button>',
@@ -83,7 +90,11 @@
     const vidasText = root.querySelector('[data-role="vidasText"]');
     const bestText = root.querySelector('[data-role="bestText"]');
     const winOverlay = root.querySelector('[data-role="winOverlay"]');
-    const winPrize = root.querySelector('[data-role="winPrize"]');
+    const winForm = root.querySelector('[data-role="winForm"]');
+    const winNameInput = root.querySelector('[data-role="winName"]');
+    const winPhoneInput = root.querySelector('[data-role="winPhone"]');
+    const winSubmitBtn = root.querySelector('[data-role="winSubmitBtn"]');
+    const winStatus = root.querySelector('[data-role="winStatus"]');
     const winRestartBtn = root.querySelector('[data-role="winRestartBtn"]');
     const muteBtn = root.querySelector('[data-role="muteBtn"]');
     const fullscreenBtn = root.querySelector('[data-role="fullscreenBtn"]');
@@ -512,7 +523,18 @@
         localStorage.setItem(bestKey, String(best));
       }
       updateHud();
-      winPrize.textContent = "\uD83C\uDFC6";
+      var alreadySent = localStorage.getItem("dino_submitted") === "1";
+      if (alreadySent) {
+        winForm.style.display = "none";
+        winStatus.textContent = "J\u00e1 enviaste os teus dados!";
+        winStatus.style.color = "#2ecc40";
+      } else {
+        winNameInput.value = "";
+        winPhoneInput.value = "";
+        winStatus.textContent = "";
+        winForm.style.display = "";
+        winSubmitBtn.disabled = false;
+      }
       winOverlay.classList.remove("hidden");
       idleObstacles = [];
       idleSpawnTimer = 0;
@@ -587,8 +609,8 @@
 
       speed += 0.0023 * deltaNorm;
       score += 0.17 * deltaNorm;
-      if (score >= 1000) {
-        score = 1000;
+      if (score >= 200) {
+        score = 200;
         gameWin();
         return;
       }
@@ -996,6 +1018,9 @@
     }
 
     function handleJumpInput(event) {
+      var t = event.target;
+      if (t.tagName === "INPUT" || t.tagName === "TEXTAREA") return;
+      if (t === fullscreenBtn || t === muteBtn || t === startBtn || t === winRestartBtn || t === winSubmitBtn) return;
       if (event.type === "keydown") {
         const key = event.key;
         if (key !== " " && key !== "ArrowUp" && key !== "Up" && key !== "w" && key !== "W") {
@@ -1003,13 +1028,67 @@
         }
         event.preventDefault();
       }
-      var t = event.target;
-      if (t === fullscreenBtn || t === muteBtn || t === startBtn || t === winRestartBtn) return;
       jump();
     }
 
+    function submitWinForm() {
+      var name = winNameInput.value.trim();
+      var phone = winPhoneInput.value.trim();
+      if (!name || !phone) {
+        winStatus.textContent = "Preenche os dois campos!";
+        winStatus.style.color = "#e04040";
+        return;
+      }
+      winSubmitBtn.disabled = true;
+      winStatus.textContent = "A enviar...";
+      winStatus.style.color = "#646773";
+
+      function sendViaForm(fields) {
+        var iframe = document.createElement("iframe");
+        iframe.name = "dino_submit_frame";
+        iframe.style.display = "none";
+        document.body.appendChild(iframe);
+        var form = document.createElement("form");
+        form.method = "POST";
+        form.action = GOOGLE_SCRIPT_URL;
+        form.target = "dino_submit_frame";
+        Object.keys(fields).forEach(function (key) {
+          var input = document.createElement("input");
+          input.type = "hidden";
+          input.name = key;
+          input.value = fields[key];
+          form.appendChild(input);
+        });
+        document.body.appendChild(form);
+        form.submit();
+        setTimeout(function () {
+          document.body.removeChild(form);
+          document.body.removeChild(iframe);
+        }, 5000);
+      }
+
+      fetch("https://api.ipify.org?format=json").then(function (r) {
+        return r.json();
+      }).then(function (ipData) {
+        return ipData.ip || "";
+      }).catch(function () {
+        return "";
+      }).then(function (ip) {
+        sendViaForm({ name: name, phone: phone, ip: ip });
+        localStorage.setItem("dino_submitted", "1");
+        winStatus.textContent = "Parab\u00e9ns! Se foste dos primeiros a vencer receber\u00e1s not\u00edcias em breve!";
+        winStatus.style.color = "#2ecc40";
+        winForm.style.display = "none";
+      });
+    }
+
+    winPhoneInput.addEventListener("input", function () {
+      winPhoneInput.value = winPhoneInput.value.replace(/[^0-9]/g, "");
+    });
+
     startBtn.addEventListener("click", startGame);
     winRestartBtn.addEventListener("click", startGame);
+    winSubmitBtn.addEventListener("click", submitWinForm);
     window.addEventListener("keydown", handleJumpInput, { passive: false });
     canvas.addEventListener("pointerdown", handleJumpInput);
     canvas.addEventListener("touchstart", handleJumpInput, { passive: true });
@@ -1032,6 +1111,7 @@
         window.removeEventListener("keydown", handleJumpInput);
         startBtn.removeEventListener("click", startGame);
         winRestartBtn.removeEventListener("click", startGame);
+        winSubmitBtn.removeEventListener("click", submitWinForm);
         canvas.removeEventListener("pointerdown", handleJumpInput);
         canvas.removeEventListener("touchstart", handleJumpInput);
         hostEl.innerHTML = "";
