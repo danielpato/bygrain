@@ -39,6 +39,11 @@
   user-select: none;
   padding: 10px 14px;
   pointer-events: none;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
+.dino-hud img {
+  filter: drop-shadow(-1px -1px 0 #fff) drop-shadow(1px -1px 0 #fff) drop-shadow(-1px 1px 0 #fff) drop-shadow(1px 1px 0 #fff);
 }
 
 .dino-canvas-wrap {
@@ -94,6 +99,35 @@
 .dino-overlay.hidden {
   opacity: 0;
   pointer-events: none;
+}
+
+.dino-win-card {
+  gap: 8px;
+}
+
+.dino-win-title {
+  margin: 0;
+  font-size: clamp(18px, 4vw, 36px);
+  color: #ff6b00;
+  text-shadow: 2px 2px 0 #c44900;
+  animation: dino-win-bounce 0.6s ease infinite alternate;
+}
+
+.dino-win-subtitle {
+  margin: 0;
+  font-size: clamp(9px, 1.6vw, 16px);
+  line-height: 1.6;
+  color: #23242a;
+}
+
+.dino-win-prize {
+  margin: 0;
+  font-size: clamp(28px, 6vw, 56px);
+}
+
+@keyframes dino-win-bounce {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
 }
 
 .dino-card {
@@ -165,6 +199,12 @@
 
 .dino-fullscreen-btn {
   right: 10px;
+}
+
+@media (pointer: fine) {
+  .dino-fullscreen-btn {
+    display: none;
+  }
 }
 
 .dino-mute-btn:active,
