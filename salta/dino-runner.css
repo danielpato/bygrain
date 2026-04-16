@@ -321,6 +321,72 @@
   }
 }
 
+.dino-pseudo-fullscreen .dino-hud {
+  font-size: 10px;
+  padding: 10px 14px;
+}
+
+.dino-pseudo-fullscreen .dino-title {
+  font-size: clamp(14px, 4vw, 28px);
+}
+
+.dino-pseudo-fullscreen .dino-subtitle {
+  font-size: clamp(9px, 2vw, 14px);
+}
+
+.dino-pseudo-fullscreen .dino-start-btn {
+  font-size: clamp(9px, 2vw, 13px);
+  padding: clamp(8px, 1.5vw, 14px) clamp(14px, 3vw, 24px);
+}
+
+.dino-pseudo-fullscreen .dino-hint {
+  font-size: clamp(6px, 1.2vw, 9px);
+}
+
+.dino-pseudo-fullscreen .dino-win-title {
+  font-size: clamp(18px, 5vw, 36px);
+}
+
+.dino-pseudo-fullscreen .dino-win-subtitle {
+  font-size: clamp(9px, 2vw, 15px);
+}
+
+.dino-pseudo-fullscreen .dino-win-trophy {
+  font-size: clamp(24px, 5vw, 48px);
+}
+
+.dino-pseudo-fullscreen .dino-win-input {
+  font-size: clamp(8px, 1.4vw, 12px);
+  padding: clamp(6px, 1vw, 10px) clamp(8px, 1.5vw, 14px);
+}
+
+.dino-pseudo-fullscreen .dino-win-status {
+  font-size: clamp(7px, 1.2vw, 10px);
+}
+
+.dino-pseudo-fullscreen .dino-win-restart-link {
+  font-size: clamp(7px, 1.2vw, 10px);
+}
+
+@media (orientation: portrait) {
+  .dino-title {
+    max-height: 22%;
+  }
+
+  .dino-subtitle {
+    font-size: clamp(7px, 2.5vw, 11px);
+    line-height: 1.5;
+  }
+
+  .dino-start-btn {
+    font-size: clamp(7px, 2.5vw, 11px);
+  }
+
+  .dino-hint {
+    font-size: clamp(5px, 1.8vw, 7px);
+  }
+}
+
 @media (max-width: 400px) {
   .dino-overlay {
     padding: 2px 4px;
