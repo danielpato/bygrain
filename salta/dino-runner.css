@@ -363,6 +363,10 @@
     font-size: clamp(4px, 1vw, 6px);
   }
 
+  .dino-win-prize {
+    height: clamp(38px, 7.5vh, 76px);
+  }
+
   .dino-mute-btn,
   .dino-fullscreen-btn {
     padding: 8px 10px;
@@ -424,6 +428,10 @@
 
 .dino-pseudo-fullscreen .dino-win-restart-link {
   font-size: clamp(7px, 1.2vw, 10px);
+}
+
+.dino-pseudo-fullscreen .dino-win-prize {
+  height: clamp(68px, 13.5vh, 136px);
 }
 
 @media (orientation: portrait) {
