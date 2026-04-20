@@ -68,7 +68,7 @@
       '            <img class="dino-win-prize dino-float-2" src="./premios/chapeu.png" alt="Chapeu">',
       '          </div>',
       '          <div class="dino-card dino-win-card">',
-      '            <div class="dino-win-title-row"><span class="dino-win-trophy">\uD83C\uDFC6</span><p class="dino-win-title">WOW! 200?</p><span class="dino-win-trophy">\uD83C\uDFC6</span></div>',
+      '            <div class="dino-win-title-row"><span class="dino-win-trophy">\uD83C\uDFC6</span><p class="dino-win-title">WOW! 1000?</p><span class="dino-win-trophy">\uD83C\uDFC6</span></div>',
       '            <p class="dino-win-subtitle">Ganda Maluc@!! Preenche os teus dados e habilita-te a ganhar 1 dos pr\u00e9mios!</p>',
       '            <div class="dino-win-form" data-role="winForm">',
       '              <div class="dino-win-form-cols">',
@@ -646,8 +646,8 @@
 
       speed += 0.0023 * deltaNorm;
       score += 0.17 * deltaNorm;
-      if (score >= 200) {
-        score = 200;
+      if (score >= 1000) {
+        score = 1000;
         gameWin();
         return;
       }
