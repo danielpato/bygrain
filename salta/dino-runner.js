@@ -4,7 +4,7 @@
       throw new Error("createDinoRunner: host element is required.");
     }
 
-    var GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxvyOfaLv2Su3WV0QVbJsY6IGNX2k9-MTPIVEt4johmJkR_VnXVYnDXgBUV6RsJ8P-J/exec";
+    var GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3KMBPn08cuXN9bVkv8tWG9FsJSJ_McVWVFsiz84R-8oO15gLZezu8a1Lefz7wLXWH/exec";
 
     var opts = options || {};
     var defaultSprites = {
@@ -18,6 +18,7 @@
       backgroundSrc: "./sprites/background.png",
       skySrc: "./sprites/sky.png",
       planeSrc: "./sprites/plane.png",
+      plane2Src: "./sprites/plane2.png",
       routerSrc: "./sprites/router.png",
       fibraSrc: "./sprites/fibra.png",
       fibradoIdleSpriteSrc: "./sprites/fibrado-idle.png",
@@ -55,22 +56,41 @@
       '      <div class="dino-overlay" data-role="overlay">',
       '        <div class="dino-card">',
       '          <img src="./sprites/splogo.png" class="dino-title" style="max-width:95%;max-height:35%;height:auto;object-fit:contain;display:block;margin:0 auto">',
-      '          <p class="dino-subtitle">Faz o teu caminho evitando os Pressinhas.<br>Os routers dar-te-\u00e3o fibra para continuar!<br>Consegues chegar ao fim?</p>',
+      '          <p class="dino-subtitle">Faz o teu caminho evitando os Pressinhas.<br>Os Routers WTF dar-te-\u00e3o fibra para continuar!<br>Consegues chegar ao fim?</p>',
       '          <button class="dino-start-btn" type="button" data-role="startBtn">Come\u00e7ar</button>',
       '          <div class="dino-hint">Controlos: Espa\u00e7o / Seta para Cima / Toca / Clica</div>',
       "        </div>",
       "      </div>",
       '      <div class="dino-overlay hidden" data-role="winOverlay">',
-      '        <div class="dino-card dino-win-card">',
-      '          <div class="dino-win-title-row"><span class="dino-win-trophy">\uD83C\uDFC6</span><p class="dino-win-title">WOW! 200?</p><span class="dino-win-trophy">\uD83C\uDFC6</span></div>',
-      '          <p class="dino-win-subtitle">Ganda Maluco!!<br>Toma l\u00e1 um pr\u00e9mio ent\u00e3o:</p>',
-      '          <div class="dino-win-form" data-role="winForm">',
-      '            <input class="dino-win-input" type="text" data-role="winName" placeholder="Nome" maxlength="200" autocomplete="off">',
-      '            <input class="dino-win-input" type="tel" data-role="winPhone" placeholder="Telefone" maxlength="50" autocomplete="off" inputmode="numeric" pattern="[0-9]*">',
-      '            <button class="dino-start-btn dino-win-submit" type="button" data-role="winSubmitBtn">Enviar</button>',
+      '        <div class="dino-win-layout">',
+      '          <div class="dino-win-prizes-col">',
+      '            <img class="dino-win-prize dino-float-1" src="./premios/poster.png" alt="Poster">',
+      '            <img class="dino-win-prize dino-float-2" src="./premios/chapeu.png" alt="Chapeu">',
       '          </div>',
-      '          <p class="dino-win-status" data-role="winStatus"></p>',
-      '          <button class="dino-start-btn dino-win-restart-link" type="button" data-role="winRestartBtn">Jogar outra vez</button>',
+      '          <div class="dino-card dino-win-card">',
+      '            <div class="dino-win-title-row"><span class="dino-win-trophy">\uD83C\uDFC6</span><p class="dino-win-title">WOW! 200?</p><span class="dino-win-trophy">\uD83C\uDFC6</span></div>',
+      '            <p class="dino-win-subtitle">Ganda Maluc@!! Preenche os teus dados e habilita-te a ganhar 1 dos pr\u00e9mios!</p>',
+      '            <div class="dino-win-form" data-role="winForm">',
+      '              <div class="dino-win-form-cols">',
+      '                <div class="dino-win-form-col">',
+      '                  <input class="dino-win-input" type="text" data-role="winName" placeholder="Nome" maxlength="200" autocomplete="off">',
+      '                  <input class="dino-win-input" type="tel" data-role="winPhone" placeholder="Telefone" maxlength="50" autocomplete="off" inputmode="numeric" pattern="[0-9]*">',
+      '                </div>',
+      '                <div class="dino-win-form-col">',
+      '                  <input class="dino-win-input" type="text" data-role="winStreet" placeholder="Rua e N\u00famero" maxlength="200" autocomplete="off">',
+      '                  <input class="dino-win-input" type="text" data-role="winDoor" placeholder="Porta" maxlength="50" autocomplete="off">',
+      '                  <input class="dino-win-input" type="text" data-role="winPostal" placeholder="C\u00f3digo Postal" maxlength="20" autocomplete="off">',
+      '                </div>',
+      '              </div>',
+      '              <button class="dino-start-btn dino-win-submit" type="button" data-role="winSubmitBtn">Enviar</button>',
+      '            </div>',
+      '            <p class="dino-win-status" data-role="winStatus"></p>',
+      '            <button class="dino-start-btn dino-win-restart-link" type="button" data-role="winRestartBtn">Jogar outra vez</button>',
+      '          </div>',
+      '          <div class="dino-win-prizes-col">',
+      '            <img class="dino-win-prize dino-float-3" src="./premios/boxers.png" alt="Boxers">',
+      '            <img class="dino-win-prize dino-float-4" src="./premios/merch.png" alt="Merch">',
+      '          </div>',
       '        </div>',
       '      </div>',
       '      <button class="dino-mute-btn" type="button" data-role="muteBtn">\uD83D\uDD0A</button>',
@@ -93,6 +113,9 @@
     const winForm = root.querySelector('[data-role="winForm"]');
     const winNameInput = root.querySelector('[data-role="winName"]');
     const winPhoneInput = root.querySelector('[data-role="winPhone"]');
+    const winStreetInput = root.querySelector('[data-role="winStreet"]');
+    const winDoorInput = root.querySelector('[data-role="winDoor"]');
+    const winPostalInput = root.querySelector('[data-role="winPostal"]');
     const winSubmitBtn = root.querySelector('[data-role="winSubmitBtn"]');
     const winStatus = root.querySelector('[data-role="winStatus"]');
     const winRestartBtn = root.querySelector('[data-role="winRestartBtn"]');
@@ -226,7 +249,7 @@
       if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         musicGain = audioCtx.createGain();
-        musicGain.gain.value = 1.0;
+        musicGain.gain.value = 0.15;
         musicGain.connect(audioCtx.destination);
         sfxGain = audioCtx.createGain();
         sfxGain.gain.value = 1.0;
@@ -281,7 +304,7 @@
 
     muteBtn.addEventListener("click", function () {
       isMuted = !isMuted;
-      if (musicGain) musicGain.gain.value = isMuted ? 0 : 1.0;
+      if (musicGain) musicGain.gain.value = isMuted ? 0 : 0.15;
       if (sfxGain) sfxGain.gain.value = isMuted ? 0 : 1.0;
       muteBtn.textContent = isMuted ? "\uD83D\uDD07" : "\uD83D\uDD0A";
     });
@@ -343,6 +366,7 @@
     let backgroundSprite = null;
     let skySprite = null;
     let planeSprite = null;
+    let plane2Sprite = null;
     let routerSprite = null;
     let fibraSprite = null;
     let bgScrollX = 0;
@@ -350,6 +374,9 @@
     let plane = null;
     let planeTimer = 0;
     let planeNextAt = 400 + Math.random() * 600;
+    let plane2 = null;
+    let plane2Timer = 0;
+    let plane2NextAt = 700 + Math.random() * 800;
     let runFrameElapsedMs = 0;
     let runFrameIndex = 0;
 
@@ -430,6 +457,10 @@
       loadSprite(nextPlaneSrc, function (img) {
         planeSprite = img;
       });
+      var nextPlane2Src = newSprites && newSprites.plane2Src ? newSprites.plane2Src : defaultSprites.plane2Src;
+      loadSprite(nextPlane2Src, function (img) {
+        plane2Sprite = img;
+      });
       var nextRouterSrc = newSprites && newSprites.routerSrc ? newSprites.routerSrc : defaultSprites.routerSrc;
       loadSprite(nextRouterSrc, function (img) {
         routerSprite = img;
@@ -470,6 +501,9 @@
       plane = null;
       planeTimer = 0;
       planeNextAt = 400 + Math.random() * 600;
+      plane2 = null;
+      plane2Timer = 0;
+      plane2NextAt = 700 + Math.random() * 800;
       runFrameElapsedMs = 0;
       runFrameIndex = 0;
       updateHud();
@@ -526,11 +560,14 @@
       var alreadySent = localStorage.getItem("dino_submitted") === "1";
       if (alreadySent) {
         winForm.style.display = "none";
-        winStatus.textContent = "J\u00e1 enviaste os teus dados!";
+        winStatus.innerHTML = "J\u00e1 enviaste os teus dados!<br>Se foste dos primeiros a vencer receber\u00e1s not\u00edcias em breve!";
         winStatus.style.color = "#2ecc40";
       } else {
         winNameInput.value = "";
         winPhoneInput.value = "";
+        winStreetInput.value = "";
+        winDoorInput.value = "";
+        winPostalInput.value = "";
         winStatus.textContent = "";
         winForm.style.display = "";
         winSubmitBtn.disabled = false;
@@ -623,7 +660,7 @@
 
       if (!plane) {
         planeTimer += 1 * deltaNorm;
-        if (planeTimer >= planeNextAt && planeSprite) {
+        if (planeTimer >= planeNextAt && planeSprite && !plane2) {
           var pw = planeSprite.naturalWidth * 0.21;
           var ph = planeSprite.naturalHeight * 0.21;
           var baseY = 30 + Math.random() * (WORLD.groundY * 0.35);
@@ -637,6 +674,25 @@
           plane = null;
           planeTimer = 0;
           planeNextAt = 400 + Math.random() * 600;
+        }
+      }
+
+      if (!plane2) {
+        plane2Timer += 1 * deltaNorm;
+        if (plane2Timer >= plane2NextAt && plane2Sprite && !plane) {
+          var p2w = plane2Sprite.naturalWidth * 0.21;
+          var p2h = plane2Sprite.naturalHeight * 0.21;
+          var base2Y = 30 + Math.random() * (WORLD.groundY * 0.35);
+          plane2 = { x: WORLD.width + 20, baseY: base2Y, y: base2Y, w: p2w, h: p2h, age: 0 };
+        }
+      } else {
+        plane2.x -= speed * 0.3 * deltaNorm;
+        plane2.age += deltaNorm;
+        plane2.y = plane2.baseY + Math.sin(plane2.age * 0.04) * 6;
+        if (plane2.x + plane2.w < -20) {
+          plane2 = null;
+          plane2Timer = 0;
+          plane2NextAt = 700 + Math.random() * 800;
         }
       }
 
@@ -788,6 +844,9 @@
       if (plane && planeSprite) {
         ctx.drawImage(planeSprite, plane.x, plane.y, plane.w, plane.h);
       }
+      if (plane2 && plane2Sprite) {
+        ctx.drawImage(plane2Sprite, plane2.x, plane2.y, plane2.w, plane2.h);
+      }
 
       ctx.strokeStyle = "#c8cfdf";
       ctx.lineWidth = 2;
@@ -935,7 +994,7 @@
 
       if (!plane) {
         planeTimer += 1 * dn;
-        if (planeTimer >= planeNextAt && planeSprite) {
+        if (planeTimer >= planeNextAt && planeSprite && !plane2) {
           var pw = planeSprite.naturalWidth * 0.21;
           var ph = planeSprite.naturalHeight * 0.21;
           var baseY = 30 + Math.random() * (WORLD.groundY * 0.35);
@@ -949,6 +1008,25 @@
           plane = null;
           planeTimer = 0;
           planeNextAt = 400 + Math.random() * 600;
+        }
+      }
+
+      if (!plane2) {
+        plane2Timer += 1 * dn;
+        if (plane2Timer >= plane2NextAt && plane2Sprite && !plane) {
+          var p2w = plane2Sprite.naturalWidth * 0.21;
+          var p2h = plane2Sprite.naturalHeight * 0.21;
+          var base2Y = 30 + Math.random() * (WORLD.groundY * 0.35);
+          plane2 = { x: WORLD.width + 20, baseY: base2Y, y: base2Y, w: p2w, h: p2h, age: 0 };
+        }
+      } else {
+        plane2.x -= idleSpeed * 0.9 * dn;
+        plane2.age += dn;
+        plane2.y = plane2.baseY + Math.sin(plane2.age * 0.04) * 6;
+        if (plane2.x + plane2.w < -20) {
+          plane2 = null;
+          plane2Timer = 0;
+          plane2NextAt = 700 + Math.random() * 800;
         }
       }
 
@@ -1034,8 +1112,11 @@
     function submitWinForm() {
       var name = winNameInput.value.trim();
       var phone = winPhoneInput.value.trim();
-      if (!name || !phone) {
-        winStatus.textContent = "Preenche os dois campos!";
+      var street = winStreetInput.value.trim();
+      var door = winDoorInput.value.trim();
+      var postal = winPostalInput.value.trim();
+      if (!name || !phone || !street || !door || !postal) {
+        winStatus.textContent = "Preenche todos os campos!";
         winStatus.style.color = "#e04040";
         return;
       }
@@ -1074,9 +1155,9 @@
       }).catch(function () {
         return "";
       }).then(function (ip) {
-        sendViaForm({ name: name, phone: phone, ip: ip });
+        sendViaForm({ name: name, phone: phone, street: street, door: door, postal: postal, ip: ip });
         localStorage.setItem("dino_submitted", "1");
-        winStatus.textContent = "Parab\u00e9ns! Se foste dos primeiros a vencer receber\u00e1s not\u00edcias em breve!";
+        winStatus.innerHTML = "Parab\u00e9ns!<br>Se foste dos primeiros a vencer receber\u00e1s not\u00edcias em breve!";
         winStatus.style.color = "#2ecc40";
         winForm.style.display = "none";
       });
