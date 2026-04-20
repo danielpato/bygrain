@@ -332,8 +332,8 @@
 
 @media (max-width: 700px) {
   .dino-hud {
-    font-size: 6px;
-    padding: 6px 8px;
+    font-size: 5px;
+    padding: 4px 6px;
   }
 
   .dino-overlay {
@@ -364,8 +364,12 @@
   }
 
   .dino-win-card {
-    gap: clamp(2px, 0.8vh, 6px);
-    padding: clamp(2px, 0.8vh, 6px) 6px;
+    gap: clamp(1px, 0.4vh, 4px);
+    padding: clamp(2px, 0.6vh, 4px) 6px;
+  }
+
+  .dino-win-layout {
+    gap: clamp(3px, 1vw, 8px);
   }
 
   .dino-win-title {
