@@ -385,6 +385,18 @@
     margin-top: clamp(1px, 0.4vh, 4px);
   }
 
+  .dino-win-form {
+    gap: clamp(1px, 0.24vh, 2px);
+  }
+
+  .dino-win-form-col {
+    gap: clamp(1px, 0.24vh, 2px);
+  }
+
+  .dino-win-form-cols {
+    gap: clamp(2px, 0.3vw, 4px);
+  }
+
   .dino-win-input {
     padding: clamp(2px, 0.5vh, 5px) clamp(4px, 0.8vw, 8px);
     font-size: clamp(5px, 0.8vw, 8px);
