@@ -386,15 +386,15 @@
   }
 
   .dino-win-form {
-    gap: clamp(1px, 0.24vh, 2px);
+    gap: 2px;
   }
 
   .dino-win-form-col {
-    gap: clamp(1px, 0.24vh, 2px);
+    gap: 2px;
   }
 
   .dino-win-form-cols {
-    gap: clamp(2px, 0.3vw, 4px);
+    gap: 2px;
   }
 
   .dino-win-input {
