@@ -102,7 +102,7 @@
 }
 
 .dino-win-card {
-  gap: clamp(2px, 0.8vh, 6px);
+  gap: clamp(12px, 3.6vh, 28px);
   max-height: 100%;
   overflow-y: auto;
   padding: clamp(4px, 1.5vh, 12px) 10px;
@@ -130,7 +130,7 @@
 }
 
 .dino-win-subtitle {
-  margin: 0;
+  margin: clamp(4px, 1vh, 10px) 0 0 0;
   font-size: clamp(7px, 1.3vw, 13px);
   line-height: 1.5;
   color: #23242a;
@@ -141,13 +141,71 @@
   to { transform: scale(1.08); }
 }
 
+.dino-win-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 1.5vw, 14px);
+  max-height: 100%;
+}
+
+.dino-win-prizes-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(4px, 1vh, 10px);
+  flex-shrink: 0;
+}
+
+.dino-win-prize {
+  height: clamp(76px, 15vh, 151px);
+  width: auto;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+@keyframes dino-float-1 {
+  0%, 100% { transform: rotate(-5deg) translateY(0); }
+  50% { transform: rotate(-5deg) translateY(-4px); }
+}
+@keyframes dino-float-2 {
+  0%, 100% { transform: rotate(3deg) translateY(0); }
+  50% { transform: rotate(3deg) translateY(-4px); }
+}
+@keyframes dino-float-3 {
+  0%, 100% { transform: rotate(4deg) translateY(0); }
+  50% { transform: rotate(4deg) translateY(-4px); }
+}
+@keyframes dino-float-4 {
+  0%, 100% { transform: rotate(6deg) translateY(0); }
+  50% { transform: rotate(6deg) translateY(-4px); }
+}
+
+.dino-float-1 { animation: dino-float-1 2.4s ease-in-out infinite; }
+.dino-float-2 { animation: dino-float-2 2.4s ease-in-out 0.6s infinite; }
+.dino-float-3 { animation: dino-float-3 2.4s ease-in-out 1.2s infinite; }
+.dino-float-4 { animation: dino-float-4 2.4s ease-in-out 1.8s infinite; }
+
 .dino-win-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: clamp(3px, 0.6vh, 6px);
   width: 100%;
-  max-width: 260px;
+  max-width: 420px;
+}
+
+.dino-win-form-cols {
+  display: flex;
+  gap: clamp(4px, 0.8vw, 10px);
+  width: 100%;
+}
+
+.dino-win-form-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3px, 0.6vh, 6px);
 }
 
 .dino-win-input {
@@ -173,7 +231,7 @@
 
 .dino-win-status {
   margin: 0;
-  font-size: clamp(5px, 0.9vw, 8px);
+  font-size: clamp(7px, 1.3vw, 12px);
   min-height: 1.2em;
   text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
 }
