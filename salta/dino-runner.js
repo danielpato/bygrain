@@ -4,7 +4,7 @@
       throw new Error("createDinoRunner: host element is required.");
     }
 
-    var GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3KMBPn08cuXN9bVkv8tWG9FsJSJ_McVWVFsiz84R-8oO15gLZezu8a1Lefz7wLXWH/exec";
+    var GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwv9VaeMU6T4wl1rBe6dzdlYHWGnkAZWptIIsMnSJZkHer9HL8r2vEERKzfmvu9Mr8_/exec";
 
     var opts = options || {};
     var defaultSprites = {
@@ -75,6 +75,7 @@
       '                <div class="dino-win-form-col">',
       '                  <input class="dino-win-input" type="text" data-role="winName" placeholder="Nome" maxlength="200" autocomplete="off">',
       '                  <input class="dino-win-input" type="tel" data-role="winPhone" placeholder="Telefone" maxlength="50" autocomplete="off" inputmode="numeric" pattern="[0-9]*">',
+      '                  <input class="dino-win-input" type="email" data-role="winEmail" placeholder="E-mail" maxlength="200" autocomplete="off">',
       '                </div>',
       '                <div class="dino-win-form-col">',
       '                  <input class="dino-win-input" type="text" data-role="winStreet" placeholder="Rua e N\u00famero" maxlength="200" autocomplete="off">',
@@ -113,6 +114,7 @@
     const winForm = root.querySelector('[data-role="winForm"]');
     const winNameInput = root.querySelector('[data-role="winName"]');
     const winPhoneInput = root.querySelector('[data-role="winPhone"]');
+    const winEmailInput = root.querySelector('[data-role="winEmail"]');
     const winStreetInput = root.querySelector('[data-role="winStreet"]');
     const winDoorInput = root.querySelector('[data-role="winDoor"]');
     const winPostalInput = root.querySelector('[data-role="winPostal"]');
@@ -565,6 +567,7 @@
       } else {
         winNameInput.value = "";
         winPhoneInput.value = "";
+        winEmailInput.value = "";
         winStreetInput.value = "";
         winDoorInput.value = "";
         winPostalInput.value = "";
@@ -1112,10 +1115,11 @@
     function submitWinForm() {
       var name = winNameInput.value.trim();
       var phone = winPhoneInput.value.trim();
+      var email = winEmailInput.value.trim();
       var street = winStreetInput.value.trim();
       var door = winDoorInput.value.trim();
       var postal = winPostalInput.value.trim();
-      if (!name || !phone || !street || !door || !postal) {
+      if (!name || !phone || !email || !street || !door || !postal) {
         winStatus.textContent = "Preenche todos os campos!";
         winStatus.style.color = "#e04040";
         return;
@@ -1155,7 +1159,7 @@
       }).catch(function () {
         return "";
       }).then(function (ip) {
-        sendViaForm({ name: name, phone: phone, street: street, door: door, postal: postal, ip: ip });
+        sendViaForm({ name: name, phone: phone, email: email, street: street, door: door, postal: postal, ip: ip });
         localStorage.setItem("dino_submitted", "1");
         winStatus.innerHTML = "Parab\u00e9ns!<br>Se foste dos primeiros a vencer receber\u00e1s not\u00edcias em breve!";
         winStatus.style.color = "#2ecc40";
