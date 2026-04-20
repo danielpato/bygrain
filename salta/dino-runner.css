@@ -363,6 +363,33 @@
     font-size: clamp(4px, 1vw, 6px);
   }
 
+  .dino-win-card {
+    gap: clamp(2px, 0.8vh, 6px);
+    padding: clamp(2px, 0.8vh, 6px) 6px;
+  }
+
+  .dino-win-title {
+    font-size: clamp(10px, 2.5vw, 18px);
+  }
+
+  .dino-win-trophy {
+    font-size: clamp(14px, 3vw, 24px);
+  }
+
+  .dino-win-subtitle {
+    font-size: clamp(5px, 1vw, 8px);
+    margin-top: clamp(1px, 0.4vh, 4px);
+  }
+
+  .dino-win-input {
+    padding: clamp(2px, 0.5vh, 5px) clamp(4px, 0.8vw, 8px);
+    font-size: clamp(5px, 0.8vw, 8px);
+  }
+
+  .dino-win-status {
+    font-size: clamp(5px, 0.9vw, 8px);
+  }
+
   .dino-win-prize {
     height: clamp(38px, 7.5vh, 76px);
   }
