@@ -436,7 +436,7 @@
 }
 
 .dino-pseudo-fullscreen .dino-subtitle {
-  font-size: clamp(9px, 2vw, 14px);
+  font-size: clamp(6px, 1.2vw, 10px);
 }
 
 .dino-pseudo-fullscreen .dino-start-btn {
