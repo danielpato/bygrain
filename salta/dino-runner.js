@@ -56,7 +56,7 @@
       '      <div class="dino-overlay" data-role="overlay">',
       '        <div class="dino-card">',
       '          <img src="./sprites/splogo.png" class="dino-title" style="max-width:95%;max-height:35%;height:auto;object-fit:contain;display:block;margin:0 auto">',
-      '          <p class="dino-subtitle">Faz o teu caminho evitando os Pressinhas.<br>Os Routers WTF dar-te-\u00e3o fibra para continuar!<br>Consegues chegar ao fim? Chega a 1000 Pontos e podes ganhar um pr\u00e9mio do Chico!!!!</p>',
+      '          <p class="dino-subtitle">Faz o teu caminho evitando os Pressinhas.<br>Os Routers WTF dar-te-\u00e3o fibra para continuar!<br>Consegues chegar ao fim? Chega a 1000 Pontos<br>e podes ganhar um pr\u00e9mio do Chico!!!!</p>',
       '          <button class="dino-start-btn" type="button" data-role="startBtn">Come\u00e7ar</button>',
       '          <div class="dino-hint">Controlos: Espa\u00e7o / Seta para Cima / Toca / Clica</div>',
       "        </div>",
